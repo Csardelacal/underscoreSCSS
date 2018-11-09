@@ -59,7 +59,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 		container.style.display = 'inline-block';
 		element.style.display = 'block';
 		
-		if (!mobile) {
+		if (!mobile && !container.classList.contains('collapsed')) {
 			element.style.left = '0px';
 			container.style.width ='200px';
 			container.parentNode.querySelector('.content').style.width = 'calc(100% - 200px)';
@@ -68,6 +68,8 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 			container.style.width = '0px';
 			container.parentNode.querySelector('.content').style.width = '100%';
 		}
+		
+		container.classList.remove('collapsed');
 		
 		/*
 		 * Create listeners that allow the application to react to events happening 
