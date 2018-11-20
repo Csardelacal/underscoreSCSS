@@ -12,7 +12,7 @@ and open the template in the editor.
 @import "../mixins/_grid.scss";
 
 
-$spacer_width: 20px / $MobileBreakpoint * 100%;
+$spacer_width: 20px / 960px * 100%;
 $max_column_count: 10;
 
 .span {
@@ -46,7 +46,7 @@ div.row {
 
 @import '_scaffolding_mobile';
 
-@media all and (max-width: $MobileBreakpoint) and (min-width: 480px){
+@media all and (max-width: 960px) and (min-width: 480px){
 	.desktop-only {
 		display: none !important;
 	}
@@ -62,7 +62,7 @@ div.row {
 	@import '_scaffolding_tablet.scss';
 }
 
-@media all and (min-width: $MobileBreakpoint) {
+@media all and (min-width: 960px) {
 	.mobile-only {
 		display: none;
 	}
