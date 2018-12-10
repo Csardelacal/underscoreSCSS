@@ -46,7 +46,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 			started: undefined,
 			
 			movementRequired : 100,
-			timeout          : 750
+			timeout          : 350
 		};
 		
 		/*
@@ -54,19 +54,25 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 		 * auto-extending parent to be properly functional
 		 */
 		var container = element.parentNode;
+		var content = container.parentNode.querySelector('.content');
+		
 		container.style.height = container.parentNode.clientHeight + 'px';
-		container.parentNode.style.whiteSpace = 'nowrap';
 		container.style.display = 'inline-block';
+		
+		container.parentNode.style.width = '100%';
+		container.parentNode.style.overflowX = 'hidden';
+		container.parentNode.style.whiteSpace = 'nowrap';
+		
 		element.style.display = 'block';
 		
 		if (!mobile && !container.classList.contains('collapsed')) {
 			element.style.left = '0px';
 			container.style.width ='200px';
-			container.parentNode.querySelector('.content').style.width = 'calc(100% - 200px)';
+			content.style.width = 'calc(100% - 200px)';
 		} else {
 			element.style.left = '-200px';
 			container.style.width = '0px';
-			container.parentNode.querySelector('.content').style.width = '100%';
+			content.style.width = '100%';
 		}
 		
 		container.classList.remove('collapsed');
@@ -128,8 +134,8 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 								var width = 1 + progress * 200;
 								element.style.left = (width - 200) + 'px';
 								container.style.width = width + 'px';
-								container.parentNode.querySelector('.content').style.width = '100%';
-								container.parentNode.querySelector('.content').style.opacity = 1 -  width / 300;
+								content.style.width = '100%';
+								content.style.opacity = 1 -  width / 300;
 							}, 300, 'easeInEaseOut');
 						}
 					}
@@ -140,9 +146,16 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 								var width = 1 + (200 - (progress * 200));
 								element.style.left = (width - 200) + 'px';
 								container.style.width = width + 'px';
-								container.parentNode.querySelector('.content').style.width = '100%';
-								container.parentNode.querySelector('.content').style.opacity = 1 -  width / 300;
+								content.style.width = '100%';
+								content.style.opacity = 1 -  width / 300;
 							}, 300, 'easeInEaseOut');
+							
+							/*
+							 * If the swipe was registered, we prevent the browser from
+							 * reacting to it.
+							 */
+							e.preventDefault();
+							e.stopPropagation();
 						}
 					}
 				}
