@@ -56,7 +56,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 		var container = element.parentNode;
 		var content = container.parentNode.querySelector('.content');
 		
-		container.style.height = container.parentNode.clientHeight + 'px';
+		//container.style.height = container.parentNode.clientHeight + 'px';
 		container.style.display = 'inline-block';
 		
 		container.parentNode.style.width = '100%';
@@ -64,6 +64,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 		container.parentNode.style.whiteSpace = 'nowrap';
 		
 		element.style.display = 'block';
+		element.style.height  = window.innerHeight + 'px';
 		
 		if (!mobile && !container.classList.contains('collapsed')) {
 			element.style.left = '0px';
