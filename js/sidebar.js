@@ -64,7 +64,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 		container.parentNode.style.whiteSpace = 'nowrap';
 		
 		element.style.display = 'block';
-		element.style.height  = window.innerHeight + 'px';
+		element.style.height  = Math.min(window.innerHeight, container.parentNode.clientHeight) + 'px';
 		
 		if (!mobile && !container.classList.contains('collapsed')) {
 			element.style.left = '0px';
@@ -92,7 +92,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 				var hidden = container.clientWidth === 0;
 				
 				transition(function (progress) {
-					var width = 1 + (hidden? progress * 200 : 200 - (progress * 200));
+					var width = (hidden? progress * 200 : 200 - (progress * 200));
 					
 					if (window.innerWidth > 1160) {
 						element.style.left = (width - 200) + 'px';
