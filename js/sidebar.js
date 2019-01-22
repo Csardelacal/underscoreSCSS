@@ -171,8 +171,12 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 			click: function(e) { e.stopPropagation(); }
 		});
 		
-		sticky.stick(element, container.parentNode, 'top');
+		var s = sticky.stick(element, container.parentNode, 'top');
+		
+		if (document.querySelector('.navbar').classList.contains('fixed')) {
+			s.clear = document.querySelector('.navbar').clientHeight;
+		}
 	};
 	
 	return sidebar;
-});
+});''
