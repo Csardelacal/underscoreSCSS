@@ -25,7 +25,12 @@
 
 depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) {
 	
-	
+	/*
+	 * These define a set of basic variables that prevent the sidebar from being 
+	 * shown if the user agent is zoomed in.
+	 */
+	var blocked = false;
+	var dpi = 99999;
 	
 	var listener = function (element, listeners) {
 		for (var i in listeners) {
@@ -35,7 +40,6 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 	};
 	
 	var sidebar = function(element) {
-		var mobile = window.innerWidth < 1160;
 		
 		var touch  = {
 			startX: undefined,
@@ -45,8 +49,14 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 			last: undefined,
 			started: undefined,
 			
+			/*
+			 * These are needed for dragging the sidebar open and closed on mobile devices.
+			 */
+			direction: undefined,
+			offset   : undefined,
+			
 			movementRequired : 100,
-			timeout          : 350
+			timeout          : 150
 		};
 		
 		/*
@@ -55,6 +65,13 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 		 */
 		var container = element.parentNode;
 		var content = container.parentNode.querySelector('.content');
+		
+		/*
+		 * 
+		 * @type Boolean
+		 */
+		var mobile   = window.innerWidth < 1160;
+		var expanded = !mobile && !container.classList.contains('collapsed');
 		
 		//container.style.height = container.parentNode.clientHeight + 'px';
 		container.style.display = 'inline-block';
@@ -66,7 +83,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 		element.style.display = 'block';
 		element.style.height  = Math.min(window.innerHeight, container.parentNode.clientHeight) + 'px';
 		
-		if (!mobile && !container.classList.contains('collapsed')) {
+		if (expanded) {
 			element.style.left = '0px';
 			container.style.width ='200px';
 			content.style.width = 'calc(100% - 200px)';
@@ -85,81 +102,123 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 
 		listener(document, {
 			click: function(e) { 
-				if (!e.target.classList.contains('toggle-button') && window.innerWidth > 1160) { return; }
-				if (container.clientWidth === 0 && !e.target.classList.contains('toggle-button')) { return; }
+				var ts = +new Date();
+				
+				console.log(ts - touch.started);
+				if (touch.started && (ts - touch.started) > touch.timeout) { return; }
+				if (!e.target.classList.contains('toggle-button') && !mobile) { return; }
+				if (!expanded && !e.target.classList.contains('toggle-button')) { return; }
 				
 				
-				var hidden = container.clientWidth === 0;
 				
 				transition(function (progress) {
-					var width = (hidden? progress * 200 : 200 - (progress * 200));
+					var width = (!expanded? progress * 200 : 200 - (progress * 200));
 					
-					if (window.innerWidth > 1160) {
+					if (!mobile) {
 						element.style.left = (width - 200) + 'px';
 						container.style.width = width + 'px';
 						container.parentNode.querySelector('.content').style.width = 'calc(100% - ' + width + 'px)';
 					} else {
-						var width = 1 + (hidden? progress * 200 : 200 - (progress * 200));
+						var width = 1 + (expanded? progress * 200 : 200 - (progress * 200));
 						element.style.left = (width - 200) + 'px';
 						container.style.width = width + 'px';
 						container.parentNode.querySelector('.content').style.width = '100%';
 						container.parentNode.querySelector('.content').style.opacity = 1 -  width / 300;
 					}
 				}, 300, 'easeInEaseOut');
+				
+				expanded = !expanded;
+				console.log('click');
 			},
 			
 			touchstart: function (e) {
+				if (blocked) { return; }
+				console.log('touchstart');
 				var finger = e.touches[0];
 				touch.startX = finger.screenX;
 				touch.startY = finger.screenY;
 				touch.started = +new Date();
+				touch.direction = undefined;
+				touch.offset    = container.clientWidth;
 			},
 			
 			touchmove : function (e) {
 				var finger = e.touches[0];
+				var ts = (+new Date());
+				
 				touch.endX = finger.screenX;
 				touch.endY = finger.screenY;
+				
+				
+				if ((ts - touch.started) < touch.timeout) {
+					return;
+				}
+				else {
+					touch.direction = touch.direction || (Math.abs(touch.endX - touch.startX) > Math.abs(touch.endY - touch.startY)? 'h' : 'v');
+				}
+				
+				if (touch.direction === 'h') {
+					var width = 1 + Math.max(0, Math.min(touch.offset + touch.endX - touch.startX, 200));
+					element.style.left = (width - 200) + 'px';
+					container.style.width = width + 'px';
+					content.style.width = '100%';
+					content.style.opacity = 1 -  width / 300;
+					e.stopPropagation();
+					e.preventDefault();
+				}
 			},
 			
 			touchend: function (e) {
-				if ((+new Date()) - touch.started > touch.timeout) {
+				if ((+new Date()) - touch.started < touch.timeout) {
 					return;
 				}
 				
-				if (Math.abs(touch.endX - touch.startX) > Math.abs(touch.endY - touch.startY) && Math.abs(touch.endX - touch.startX) > touch.movementRequired) {
-					//Horizontal swipe
-					if (touch.endX - touch.startX > 0) {
-						//Left to right swipe
-						if (window.innerWidth < 1160 && container.clientWidth === 0) {
-							transition(function (progress) {
-								var width = 1 + progress * 200;
-								element.style.left = (width - 200) + 'px';
-								container.style.width = width + 'px';
-								content.style.width = '100%';
-								content.style.opacity = 1 -  width / 300;
-							}, 300, 'easeInEaseOut');
-						}
-					}
-					else {
-						//Right to left swipe
-						if (window.innerWidth < 1160 && container.clientWidth !== 0) {
-							transition(function (progress) {
-								var width = 1 + (200 - (progress * 200));
-								element.style.left = (width - 200) + 'px';
-								container.style.width = width + 'px';
-								content.style.width = '100%';
-								content.style.opacity = 1 -  width / 300;
-							}, 300, 'easeInEaseOut');
-							
-							/*
-							 * If the swipe was registered, we prevent the browser from
-							 * reacting to it.
-							 */
-							e.preventDefault();
-							e.stopPropagation();
-						}
-					}
+				if (blocked) {
+					return;
 				}
+				
+				if (touch.direction !== 'h') {
+					return;
+				}
+				
+				//Horizontal swipe
+				if (touch.endX - touch.startX > 50) {
+					//Left to right swipe
+					var start = container.clientWidth;
+					expanded = true;
+					
+					transition(function (progress) {
+						var width = start + progress * (200 - start);
+						element.style.left = (width - 200) + 'px';
+						container.style.width = width + 'px';
+						content.style.width = '100%';
+						content.style.opacity = 1 -  width / 300;
+					}, 300, 'easeInEaseOut');
+				}
+				else {
+					var start = container.clientWidth;
+					expanded = false;
+					
+					//Right to left swipe
+					transition(function (progress) {
+						var width = (start - (progress * start));
+						element.style.left = (width - 200) + 'px';
+						container.style.width = width + 'px';
+						content.style.width = '100%';
+						content.style.opacity = 1 -  width / 300;
+					}, 300, 'easeInEaseOut');
+
+				}
+				console.log('touchend');
+				
+				touch.started = undefined;
+				
+				/*
+				 * If the swipe was registered, we prevent the browser from
+				 * reacting to it.
+				 */
+				e.preventDefault();
+				e.stopPropagation();
 			}
 		});
 
@@ -178,5 +237,13 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 		}
 	};
 	
+	/*
+	 * Check if the viewport is zoomed in and prevent the browser from displaying 
+	 * the sidebar if zoomed.
+	 */
+	window.visualViewport.addEventListener('resize', function(e) {
+		blocked = event.target.scale !== 1;
+	});
+	
 	return sidebar;
-});''
+});
