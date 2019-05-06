@@ -26,12 +26,20 @@
 depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) {
 	
 	/*
-	 * These define a set of basic variables that prevent the sidebar from being 
+	 * This defines a basic rule that prevent the sidebar from being 
 	 * shown if the user agent is zoomed in.
 	 */
 	var blocked = false;
-	var dpi = 99999;
 	
+	/*
+	 * This function makes it rather fast to create listeners for different things
+	 * on the same element without having to write the same addEventListener over
+	 * and over.
+	 * 
+	 * @param {HTMLElement} element
+	 * @param {Object} listeners
+	 * @returns {undefined}
+	 */
 	var listener = function (element, listeners) {
 		for (var i in listeners) {
 			if (!listeners.hasOwnProperty(i)) { continue; }
@@ -84,11 +92,10 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 		element.style.height  = Math.min(window.innerHeight, container.parentNode.clientHeight) + 'px';
 		
 		if (expanded) {
-			element.style.left = '0px';
 			container.style.width ='200px';
 			content.style.width = 'calc(100% - 200px)';
 		} else {
-			element.style.left = '-200px';
+			element.style.transform = 'translate(-200px, 0)';
 			container.style.width = '0px';
 			content.style.width = '100%';
 		}
@@ -104,30 +111,31 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 			click: function(e) { 
 				var ts = +new Date();
 				
-				console.log(ts - touch.started);
 				if (touch.started && (ts - touch.started) > touch.timeout) { return; }
 				if (!e.target.classList.contains('toggle-button') && !mobile) { return; }
 				if (!expanded && !e.target.classList.contains('toggle-button')) { return; }
 				
+				setTimeout (function () {
+					expanded = !expanded;
+				}, 400);
 				
 				
 				transition(function (progress) {
+					console.log(expanded);
 					var width = (!expanded? progress * 200 : 200 - (progress * 200));
 					
 					if (!mobile) {
-						element.style.left = (width - 200) + 'px';
+						element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
 						container.style.width = width + 'px';
 						container.parentNode.querySelector('.content').style.width = 'calc(100% - ' + width + 'px)';
 					} else {
-						var width = 1 + (expanded? progress * 200 : 200 - (progress * 200));
-						element.style.left = (width - 200) + 'px';
+						element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
 						container.style.width = width + 'px';
 						container.parentNode.querySelector('.content').style.width = '100%';
 						container.parentNode.querySelector('.content').style.opacity = 1 -  width / 300;
 					}
 				}, 300, 'easeInEaseOut');
 				
-				expanded = !expanded;
 				console.log('click');
 			},
 			
@@ -159,7 +167,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 				
 				if (touch.direction === 'h') {
 					var width = 1 + Math.max(0, Math.min(touch.offset + touch.endX - touch.startX, 200));
-					element.style.left = (width - 200) + 'px';
+					element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
 					container.style.width = width + 'px';
 					content.style.width = '100%';
 					content.style.opacity = 1 -  width / 300;
@@ -189,7 +197,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 					
 					transition(function (progress) {
 						var width = start + progress * (200 - start);
-						element.style.left = (width - 200) + 'px';
+						element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
 						container.style.width = width + 'px';
 						content.style.width = '100%';
 						content.style.opacity = 1 -  width / 300;
@@ -202,7 +210,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 					//Right to left swipe
 					transition(function (progress) {
 						var width = (start - (progress * start));
-						element.style.left = (width - 200) + 'px';
+						element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
 						container.style.width = width + 'px';
 						content.style.width = '100%';
 						content.style.opacity = 1 -  width / 300;
@@ -241,7 +249,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 	 * Check if the viewport is zoomed in and prevent the browser from displaying 
 	 * the sidebar if zoomed.
 	 */
-	window.visualViewport.addEventListener('resize', function(e) {
+	window.visualViewport && window.visualViewport.addEventListener('resize', function(e) {
 		blocked = event.target.scale !== 1;
 	});
 	
