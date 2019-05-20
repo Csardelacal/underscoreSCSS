@@ -136,7 +136,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 					}
 				}, 300, 'easeInEaseOut');
 				
-				console.log('click');
+				e.preventDefault();
 			},
 			
 			touchstart: function (e) {
