@@ -238,6 +238,12 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 			click: function(e) { e.stopPropagation(); }
 		});
 		
+		listener(window, {
+			resize : function () {
+				element.style.height  = Math.min(window.innerHeight, container.parentNode.clientHeight) + 'px';
+			}
+		});
+		
 		var s = sticky.stick(element, container.parentNode, 'top');
 		
 		if (document.querySelector('.navbar').classList.contains('fixed')) {

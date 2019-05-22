@@ -14,14 +14,30 @@ body {
 	width:  200px;
 	
 	.menu-title {
+		display: block;
 		color: #2a912e;
-		padding: 10px;
+		padding: 12px 10px 6px 15px;
+		font-weight: bold;
 	}
 	
 	.menu-entry {
-		padding: 5px 0px 5px 15px;
+		padding: 6px 0px 6px 15px;
 		font-size: .8em;
 		color: #666;
+		display: block;
+		border-radius: 0 7px 7px 0;
+		
+		&:hover {
+			color: #242424;
+			background: #F7F7F7;
+		}
+		
+		&.active,
+		&:active {
+			background-color: #2f97e0;
+			color: #FFF;
+			font-weight: bold;
+		}
 	}
 	
 	.indented {
