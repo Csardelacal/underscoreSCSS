@@ -23,13 +23,7 @@
  */
 
 
-depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) {
-	
-	/*
-	 * This defines a basic rule that prevent the sidebar from being 
-	 * shown if the user agent is zoomed in.
-	 */
-	var blocked = false;
+depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], function(sticky, transition, Gesture) {
 	
 	/*
 	 * This function makes it rather fast to create listeners for different things
@@ -49,23 +43,6 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 	
 	var sidebar = function(element) {
 		
-		var touch  = {
-			startX: undefined,
-			startY: undefined,
-			endX: undefined,
-			endY: undefined,
-			last: undefined,
-			started: undefined,
-			
-			/*
-			 * These are needed for dragging the sidebar open and closed on mobile devices.
-			 */
-			direction: undefined,
-			offset   : undefined,
-			
-			movementRequired : 100,
-			timeout          : 150
-		};
 		
 		/*
 		 * Set the sidebar to be the entire height of the document. This expects an
@@ -81,7 +58,6 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 		var mobile   = window.innerWidth < 1160;
 		var expanded = !mobile && !container.classList.contains('collapsed');
 		
-		//container.style.height = container.parentNode.clientHeight + 'px';
 		container.style.display = 'inline-block';
 		
 		container.parentNode.style.width = '100%';
@@ -102,132 +78,104 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 		
 		container.classList.remove('collapsed');
 		
+		var redraw = function (from, to) {
+			
+			transition(function (progress) {
+				var width = from + (to - from) * progress;
+
+				element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
+				container.style.width = width + 'px';
+
+				if (mobile) {
+					container.parentNode.querySelector('.content').style.width = '100%';
+					container.parentNode.querySelector('.content').style.opacity = 1 -  width / 300;
+				} 
+				else {
+					container.parentNode.querySelector('.content').style.width = 'calc(100% - ' + width + 'px)';
+				}
+			}, 300, 'easeInEaseOut');
+		};
+		
+		var hide = function () {
+			var start = container.clientWidth;
+			expanded = false;
+			redraw(start, 0);
+		};
+		
+		var show = function () {
+			var start = container.clientWidth;
+			expanded = true;
+			redraw(start, 200);
+		};
+		
+		var toggle = function () {
+			expanded? hide() : show();
+		};
+		
+		
+		var g = new Gesture(document, 'swipe');
+		var offset = undefined;
+		
+		g.init(function (meta) { 
+			console.log('touchstart');
+			offset = container.clientWidth;
+		});
+		
+		g.follow(function (meta, stop) {
+			if (meta.direction === 'h') {
+				var width = 1 + Math.max(0, Math.min(offset + meta.endX - meta.startX, 200));
+				element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
+				container.style.width = width + 'px';
+				content.style.width = '100%';
+				content.style.opacity = 1 -  width / 300;
+				stop();
+			};
+		});
+		
+		g.end(function (meta, stop) {
+
+			//Horizontal swipe
+			if (meta.direction !== 'h') {
+				return;
+			}
+			
+			if (meta.endX - meta.startX > 0) {
+				//Left to right swipe
+				show();
+			}
+			else {
+				hide();
+			}
+			console.log('touchend');
+
+			/*
+			 * If the swipe was registered, we prevent the browser from
+			 * reacting to it.
+			 */
+			stop();
+		});
+
 		/*
 		 * Create listeners that allow the application to react to events happening 
 		 * in the browser.
 		 */
-
 		listener(document, {
 			click: function(e) { 
-				var ts = +new Date();
-				
-				if (touch.started && (ts - touch.started) > touch.timeout) { return; }
-				if (!e.target.classList.contains('toggle-button') && !mobile) { return; }
-				if (!expanded && !e.target.classList.contains('toggle-button')) { return; }
-				
-				setTimeout (function () {
-					expanded = !expanded;
-				}, 400);
-				
-				
-				transition(function (progress) {
-					console.log(expanded);
-					var width = (!expanded? progress * 200 : 200 - (progress * 200));
-					
-					if (!mobile) {
-						element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
-						container.style.width = width + 'px';
-						container.parentNode.querySelector('.content').style.width = 'calc(100% - ' + width + 'px)';
-					} else {
-						element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
-						container.style.width = width + 'px';
-						container.parentNode.querySelector('.content').style.width = '100%';
-						container.parentNode.querySelector('.content').style.opacity = 1 -  width / 300;
-					}
-				}, 300, 'easeInEaseOut');
-				
-				e.preventDefault();
-			},
-			
-			touchstart: function (e) {
-				if (blocked) { return; }
-				console.log('touchstart');
-				var finger = e.touches[0];
-				touch.startX = finger.screenX;
-				touch.startY = finger.screenY;
-				touch.started = +new Date();
-				touch.direction = undefined;
-				touch.offset    = container.clientWidth;
-			},
-			
-			touchmove : function (e) {
-				var finger = e.touches[0];
-				var ts = (+new Date());
-				
-				touch.endX = finger.screenX;
-				touch.endY = finger.screenY;
-				
-				
-				if ((ts - touch.started) < touch.timeout) {
-					return;
-				}
-				else {
-					touch.direction = touch.direction || (Math.abs(touch.endX - touch.startX) > Math.abs(touch.endY - touch.startY)? 'h' : 'v');
-				}
-				
-				if (touch.direction === 'h') {
-					var width = 1 + Math.max(0, Math.min(touch.offset + touch.endX - touch.startX, 200));
-					element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
-					container.style.width = width + 'px';
-					content.style.width = '100%';
-					content.style.opacity = 1 -  width / 300;
-					e.stopPropagation();
-					e.preventDefault();
-				}
-			},
-			
-			touchend: function (e) {
-				if ((+new Date()) - touch.started < touch.timeout) {
-					return;
-				}
-				
-				if (blocked) {
-					return;
-				}
-				
-				if (touch.direction !== 'h') {
-					return;
-				}
-				
-				//Horizontal swipe
-				if (touch.endX - touch.startX > 50) {
-					//Left to right swipe
-					var start = container.clientWidth;
-					expanded = true;
-					
-					transition(function (progress) {
-						var width = start + progress * (200 - start);
-						element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
-						container.style.width = width + 'px';
-						content.style.width = '100%';
-						content.style.opacity = 1 -  width / 300;
-					}, 300, 'easeInEaseOut');
-				}
-				else {
-					var start = container.clientWidth;
-					expanded = false;
-					
-					//Right to left swipe
-					transition(function (progress) {
-						var width = (start - (progress * start));
-						element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
-						container.style.width = width + 'px';
-						content.style.width = '100%';
-						content.style.opacity = 1 -  width / 300;
-					}, 300, 'easeInEaseOut');
-
-				}
-				console.log('touchend');
-				
-				touch.started = undefined;
-				
 				/*
-				 * If the swipe was registered, we prevent the browser from
-				 * reacting to it.
+				 * In case the click event has bubbled to the document and is NOT coming
+				 * from the toggle button, we will simply ignore it.
+				 * 
+				 * The exception to this rule is when the sidebar is being displayed 
+				 * on a mobile device and has been expanded, since a press on any area
+				 * of the document will cause the sidebar to be collapsed.
 				 */
+				if (!e.target.classList.contains('toggle-button') && !(mobile && expanded)) { return; }
+				
+				toggle();
+				
 				e.preventDefault();
-				e.stopPropagation();
-			}
+			},
+			
 		});
 
 		listener(container, {
@@ -250,14 +198,6 @@ depend(['m3/ui/sticky', 'm3/animation/animation'], function(sticky, transition) 
 			s.clear = document.querySelector('.navbar').clientHeight;
 		}
 	};
-	
-	/*
-	 * Check if the viewport is zoomed in and prevent the browser from displaying 
-	 * the sidebar if zoomed.
-	 */
-	window.visualViewport && window.visualViewport.addEventListener('resize', function(e) {
-		blocked = event.target.scale !== 1;
-	});
 	
 	return sidebar;
 });
