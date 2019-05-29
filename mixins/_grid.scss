@@ -30,7 +30,7 @@ and open the template in the editor.
 			
 			._f#{$prefix}#{$row_size}-#{$prefix}#{$j}, 
 			.row.#{$prefix}#{$row_size}>.span.#{$prefix}#{$j} {
-				width: $j * 100% / $row_size - $spacer_width;
+				width: $j * 100% / $row_size;
 			}
 			
 			$factor : 2;

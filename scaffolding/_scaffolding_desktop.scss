@@ -11,15 +11,7 @@ make them more usable.
 
 div.row {
 	width: 100%;
-	max-width: 71em;
-}
-
-.span {
-	margin-left: $spacer-width / 2;
-		
-	&:first-child {
-		margin-left: $spacer-width / 2;
-	}
+	max-width: 960px;
 }
 
 @include grid('l', 10);
