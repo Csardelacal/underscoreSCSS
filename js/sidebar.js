@@ -49,28 +49,47 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 		 * auto-extending parent to be properly functional
 		 */
 		var container = element.parentNode;
-		var content = container.parentNode.querySelector('.content');
+		var wrapper = container.parentNode;
+		var content = wrapper.querySelector('.content');
 		
 		/*
+		 * The narrow flag reports to the system whether we determined the system
+		 * providing the viewport as a "mobile" device.
+		 * 
+		 * Please note that while this only determines whether this device is wide
+		 * enough to hold a "standard" 960px wide site and the 200px wide sidebar 
+		 * without issue.
+		 * 
+		 * This means that also a PC with a rotated screen, or a small netbook may
+		 * be considered mobile by this.
 		 * 
 		 * @type Boolean
 		 */
-		var mobile   = window.innerWidth < 1160;
-		var expanded = !mobile && !container.classList.contains('collapsed');
+		var narrow   = window.innerWidth < 1160;
 		
-		container.style.display = 'inline-block';
+		/*
+		 * This flag indicates whether the sidebar should be collapsed. Notice that
+		 * it allows the programmer to use the 'collapsed' class to indicate that
+		 * the sidebar should also be collapsed for wider devices.
+		 * 
+		 * @type Boolean
+		 */
+		var expanded = !narrow && !container.classList.contains('collapsed');
 		
-		container.parentNode.style.width = '100%';
-		container.parentNode.style.overflowX = 'hidden';
-		container.parentNode.style.whiteSpace = 'nowrap';
-		
-		element.style.display = 'block';
-		element.style.height  = Math.min(window.innerHeight, container.parentNode.clientHeight) + 'px';
+		/*
+		 * The wrapper can be any element containing the sidebar and content structure.
+		 * For the sake of convenience I recommend using a single, class-free and
+		 * attribute free div that the sidebar can modify.
+		 */
+		wrapper.style.width = '100%';
+		wrapper.style.overflowX = 'hidden';
+		wrapper.style.whiteSpace = 'nowrap';
 		
 		if (expanded) {
 			container.style.width ='200px';
 			content.style.width = 'calc(100% - 200px)';
-		} else {
+		} 
+		else {
 			element.style.transform = 'translate(-200px, 0)';
 			container.style.width = '0px';
 			content.style.width = '100%';
@@ -86,12 +105,12 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 				element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
 				container.style.width = width + 'px';
 
-				if (mobile) {
-					container.parentNode.querySelector('.content').style.width = '100%';
-					container.parentNode.querySelector('.content').style.opacity = 1 -  width / 300;
+				if (narrow) {
+					wrapper.querySelector('.content').style.width = '100%';
+					wrapper.querySelector('.content').style.opacity = 1 -  width / 300;
 				} 
 				else {
-					container.parentNode.querySelector('.content').style.width = 'calc(100% - ' + width + 'px)';
+					wrapper.querySelector('.content').style.width = 'calc(100% - ' + width + 'px)';
 				}
 			}, 300, 'easeInEaseOut');
 		};
@@ -169,7 +188,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 				 * on a mobile device and has been expanded, since a press on any area
 				 * of the document will cause the sidebar to be collapsed.
 				 */
-				if (!e.target.classList.contains('toggle-button') && !(mobile && expanded)) { return; }
+				if (!e.target.classList.contains('toggle-button') && !(narrow && expanded)) { return; }
 				
 				toggle();
 				
@@ -188,11 +207,11 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 		
 		listener(window, {
 			resize : function () {
-				element.style.height  = Math.min(window.innerHeight, container.parentNode.clientHeight) + 'px';
+				element.style.height  = Math.min(window.innerHeight, wrapper.clientHeight) + 'px';
 			}
 		});
 		
-		var s = sticky.stick(element, container.parentNode, 'top');
+		var s = sticky.stick(element, wrapper, 'top');
 		
 		if (document.querySelector('.navbar').classList.contains('fixed')) {
 			s.clear = document.querySelector('.navbar').clientHeight;

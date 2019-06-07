@@ -11,6 +11,7 @@ body {
 .sidebar {
 	overflow: hidden;
 	position: relative;
+	display: block;
 	width:  200px;
 	
 	.menu-title {
@@ -57,6 +58,7 @@ body {
 
 .sidebar:hover {
 	overflow: auto;
+	background: #F00;
 }
 
 .toggle-button {
@@ -91,6 +93,9 @@ body {
 
 .contains-sidebar {
 	overflow-x: hidden;
+	display: inline-block;
+	width: 200px;
+	height: 100%;
 }
 
 .content {
@@ -108,16 +113,6 @@ body {
 }
 
 	
-
-@media all {
-	.contains-sidebar {
-		display: inline-block;
-		width: 200px;
-		height: 100%;
-		
-	}
-}
-
 
 @media all and (max-width: 1160px) {
 	.contains-sidebar {
@@ -137,6 +132,7 @@ body {
 @media all and (min-width: 1160px) {
 	.contains-sidebar {
 		&+.content {
+			width: 960px; //Fall back for the 3 people who use IE6
 			width: calc(100% - 200px);
 		}
 		
