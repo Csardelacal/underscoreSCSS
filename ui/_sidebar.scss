@@ -53,12 +53,15 @@ body {
 		&:hover {
 			color: #333;
 		}
+		
+		&:active {
+			color: #FFF;
+		}
 	}
 }
 
 .sidebar:hover {
 	overflow: auto;
-	background: #F00;
 }
 
 .toggle-button {
