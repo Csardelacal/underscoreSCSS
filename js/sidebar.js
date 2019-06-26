@@ -45,27 +45,12 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 		
 		
 		/*
-		 * Set the sidebar to be the entire height of the document. This expects an
-		 * auto-extending parent to be properly functional
+		 * Set the sidebar to be the entire height of the document.
 		 */
 		var container = element.parentNode;
-		var wrapper = container.parentNode;
-		var content = wrapper.querySelector('.content');
-		
-		/*
-		 * The narrow flag reports to the system whether we determined the system
-		 * providing the viewport as a "mobile" device.
-		 * 
-		 * Please note that while this only determines whether this device is wide
-		 * enough to hold a "standard" 960px wide site and the 200px wide sidebar 
-		 * without issue.
-		 * 
-		 * This means that also a PC with a rotated screen, or a small netbook may
-		 * be considered mobile by this.
-		 * 
-		 * @type Boolean
-		 */
-		var narrow   = window.innerWidth < 1160;
+		var position  = 0;
+		var width     = 300;
+		var opacity   = .3;
 		
 		/*
 		 * This flag indicates whether the sidebar should be collapsed. Notice that
@@ -74,57 +59,36 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 		 * 
 		 * @type Boolean
 		 */
-		var expanded = !narrow && !container.classList.contains('collapsed');
+		var expanded = false;
 		
-		/*
-		 * The wrapper can be any element containing the sidebar and content structure.
-		 * For the sake of convenience I recommend using a single, class-free and
-		 * attribute free div that the sidebar can modify.
-		 */
-		wrapper.style.width = '100%';
-		wrapper.style.overflowX = 'hidden';
-		wrapper.style.whiteSpace = 'nowrap';
-		
-		if (expanded) {
-			container.style.width ='200px';
-			content.style.width = 'calc(100% - 200px)';
-		} 
-		else {
-			element.style.transform = 'translate(-200px, 0)';
-			container.style.width = '0px';
-			content.style.width = '100%';
-		}
-		
-		container.classList.remove('collapsed');
-		
-		var redraw = function (from, to) {
+		var redraw = function (to) {
+			
+			var from = position;
 			
 			transition(function (progress) {
-				var width = from + (to - from) * progress;
+				position = from + (to - from) * progress;
 
-				element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
-				container.style.width = width + 'px';
-
-				if (narrow) {
-					wrapper.querySelector('.content').style.width = '100%';
-					wrapper.querySelector('.content').style.opacity = 1 -  width / 300;
-				} 
-				else {
-					wrapper.querySelector('.content').style.width = 'calc(100% - ' + width + 'px)';
+				element.style.transform = 'translate(' + (position - width) + 'px, 0px)';
+				container.style.background = 'rgba(0, 0, 0, ' + position / width * opacity + ')';
+				
+				if (position / width === 0) {
+					container.style.display = 'none';
 				}
+				else {
+					container.style.display = 'block';
+				}
+				
 			}, 300, 'easeInEaseOut');
 		};
 		
 		var hide = function () {
-			var start = container.clientWidth;
 			expanded = false;
-			redraw(start, 0);
+			redraw(0);
 		};
 		
 		var show = function () {
-			var start = container.clientWidth;
 			expanded = true;
-			redraw(start, 200);
+			redraw(width);
 		};
 		
 		var toggle = function () {
@@ -137,16 +101,16 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 		
 		g.init(function (meta) { 
 			console.log('touchstart');
-			offset = container.clientWidth;
+			offset = position;
 		});
 		
 		g.follow(function (meta, stop) {
-			if (meta.direction === 'h') {
-				var width = 1 + Math.max(0, Math.min(offset + meta.endX - meta.startX, 200));
-				element.style.transform = 'translate(' + (width - 200) + 'px, 0px)';
-				container.style.width = width + 'px';
-				content.style.width = '100%';
-				content.style.opacity = 1 -  width / 300;
+			console.log(offset);
+			if (meta.direction === 'h' && meta.startX > 100) {
+				var t = 1 + Math.max(0, Math.min(offset + meta.endX - meta.startX, width));
+				element.style.transform = 'translate(' + (t - width) + 'px, 0px)';
+				container.style.background = 'rgba(0, 0, 0, ' + t / width * opacity + ')';
+				container.style.display = 'block';
 				stop();
 			};
 		});
@@ -154,9 +118,11 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 		g.end(function (meta, stop) {
 
 			//Horizontal swipe
-			if (meta.direction !== 'h') {
+			if (meta.direction !== 'h' || meta.startX < 100) {
 				return;
 			}
+			
+			position = 1 + Math.max(0, Math.min(offset + meta.endX - meta.startX, width));
 			
 			if (meta.endX - meta.startX > 0) {
 				//Left to right swipe
@@ -183,33 +149,33 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 				/*
 				 * In case the click event has bubbled to the document and is NOT coming
 				 * from the toggle button, we will simply ignore it.
-				 * 
-				 * The exception to this rule is when the sidebar is being displayed 
-				 * on a mobile device and has been expanded, since a press on any area
-				 * of the document will cause the sidebar to be collapsed.
 				 */
-				if (!e.target.classList.contains('toggle-button') && !(narrow && expanded)) { return; }
+				if (!e.target.classList.contains('toggle-button')) { return; }
 				
 				toggle();
 				
 				e.preventDefault();
-			},
+			}
 			
 		});
-
+		
+		/*
+		 * When the container is clicked, the sidebar is hidden from the viewport,
+		 * assuming that the user did wish to see whatever was behind it.
+		 */
 		listener(container, {
-			click: sidebar.hide
+			click: hide
 		});
-
+		
+		/*
+		 * If the sidebar is clicked, it will prevent the event from bubbling, since
+		 * it would cause the parent element (container) to hide the sidebar as a 
+		 * result.
+		 */
 		listener(element, {
 			click: function(e) { e.stopPropagation(); }
 		});
 		
-		var s = sticky.stick(element, wrapper, 'top');
-		
-		if (document.querySelector('.navbar').classList.contains('fixed')) {
-			s.clear = document.querySelector('.navbar').clientHeight;
-		}
 	};
 	
 	return sidebar;

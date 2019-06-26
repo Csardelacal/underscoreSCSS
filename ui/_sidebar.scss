@@ -10,9 +10,17 @@ body {
 
 .sidebar {
 	overflow: hidden;
-	position: relative;
+	position: fixed;
 	display: block;
-	width:  200px;
+	height: 100%;
+	left: 0px;
+	top : 0;
+	width:  300px;
+	max-width:  90%;
+	transform: translate(-300px, 0);
+	background: #FFF;
+	box-shadow: 0 0 15px rgba(0, 0, 0, .1);
+	border-right: 1px solid #DDD;
 	
 	.menu-title {
 		display: block;
@@ -95,61 +103,20 @@ body {
 }
 
 .contains-sidebar {
-	overflow-x: hidden;
-	display: inline-block;
-	width: 200px;
-	height: 100%;
-}
-
-.content {
-	display: inline-block;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
 	width: 100%;
-	vertical-align: top;
-	white-space: normal;
-	
-	/* 12.03.2018
-    * This was introduced to prevent browsers (namely Safari) from not redrawing
-    * the children properly when resizing the UI. For some reason, when the parent
-    * is changed in size, not all children behave as expected.
-	 */
-	overflow-x: hidden;
+	height: 100%;
+	background: rgba(0, 0, 0, .1);
+	z-index: 30;
 }
-
 	
 
 @media all and (max-width: 1160px) {
-	.contains-sidebar {
-		display: none;
-	}
-	
-	.sidebar {
-		display: none;
-	}
-	
-	.content {
-		width: 100%;
-	}
 }
 
 
 @media all and (min-width: 1160px) {
-	.contains-sidebar {
-		&+.content {
-			width: 960px; //Fall back for the 3 people who use IE6
-			width: calc(100% - 200px);
-		}
-		
-		&.collapsed {
-			display: none;
-			
-			&+.content {
-				width: 100%;
-			}
-		}
-		
-		.sidebar {
-			position: relative;
-			width: 200px;
-		}
-	}
 }
