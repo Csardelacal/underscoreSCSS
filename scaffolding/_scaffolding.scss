@@ -49,6 +49,21 @@ div.row {
 		width: 100%;
 		max-width: 100%;
 	}
+	
+	&.ng .span {
+		padding: 0;
+	}
+	
+	&.ng-lr {
+		
+		.span:first-child {
+			padding-left: 0;
+		}
+		
+		.span:nth-last-of-type(1) {
+			padding-right: 0;
+		}
+	}
 }
 
 
