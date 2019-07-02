@@ -22,8 +22,11 @@ depend(['m3/animation/animation'], function (animation) {
 			close = dialog.appendChild(document.createElement('div'));
 			inner = dialog.appendChild(document.createElement('div'));
 			
+			if (options.transparent) { dialog.className = 'dialog transparent'; }
+			else { dialog.className = 'dialog'; }
+			
+			
 			backdrop.className = 'dialog-backdrop';
-			dialog.className = 'dialog';
 			close.className = 'close';
 			inner.className = 'inner';
 			backdrop.style.opacity = 0;
@@ -48,6 +51,8 @@ depend(['m3/animation/animation'], function (animation) {
 			animation(function (progress) {
 				backdrop.style.opacity = progress;
 			}, 300, 'ease');
+			
+			inner.style.maxHeight = 'calc(' + (window.innerHeight) + 'px - 14rem)';
 		};
 		
 		this.hide = function () {
