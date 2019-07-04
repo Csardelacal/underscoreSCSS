@@ -62,4 +62,11 @@ THE SOFTWARE.
 			color: #FFF;
 		}
 	}
+	
+	&.vertical {
+		.navigation-item {
+			display: block;
+			width: 100%;
+		}
+	}
 }

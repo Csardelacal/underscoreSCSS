@@ -2,7 +2,7 @@
 $navbar-background:     #FEFEFE;
 $navbar-fontColor :        #444;
 $navbar-height    :        50px;
-$navbar-padding   :        15px;
+$navbar-padding   :        10px;
 
 .navbar {
 	background: $navbar-background;
@@ -47,6 +47,7 @@ $navbar-padding   :        15px;
 
 		img {
 			height: $navbar-height - 2 * $navbar-padding;
+			width: auto;
 			margin-right: 5px;
 		}
 	}
