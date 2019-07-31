@@ -53,6 +53,14 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 		var opacity   = .3;
 		
 		/*
+		 * This variable indicates whether the sidebar is being blocked from being
+		 * displayed. This is useful for any behavior where the 
+		 * 
+		 * @type Boolean
+		 */
+		var blocked   = false;
+		
+		/*
 		 * This flag indicates whether the sidebar should be collapsed. Notice that
 		 * it allows the programmer to use the 'collapsed' class to indicate that
 		 * the sidebar should also be collapsed for wider devices.
@@ -100,12 +108,11 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 		var offset = undefined;
 		
 		g.init(function (meta) { 
-			console.log('touchstart');
+			if (blocked) { return false; }
 			offset = position;
 		});
 		
 		g.follow(function (meta, stop) {
-			console.log(offset);
 			if (meta.direction === 'h' && meta.startX > 100) {
 				var t = 1 + Math.max(0, Math.min(offset + meta.endX - meta.startX, width));
 				element.style.transform = 'translate(' + (t - width) + 'px, 0px)';
@@ -139,7 +146,7 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 			 */
 			stop();
 		});
-
+		
 		/*
 		 * Create listeners that allow the application to react to events happening 
 		 * in the browser.
@@ -175,6 +182,11 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 		listener(element, {
 			click: function(e) { e.stopPropagation(); }
 		});
+		
+		return {
+			disabled : function () { hide(); blocked = true; },
+			enable   : function () { blocked = false; }
+		};
 		
 	};
 	
