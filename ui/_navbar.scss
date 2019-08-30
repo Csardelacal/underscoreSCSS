@@ -2,21 +2,19 @@
 $navbar-background:     #FEFEFE;
 $navbar-fontColor :        #444;
 $navbar-height    :        50px;
-$navbar-padding   :        10px;
+$navbar-padding   :        20px;
 
 .navbar {
-	background: $navbar-background;
-	box-shadow: 0 2px 2px #DDD;
-	border-bottom: 1px solid #CCC;
 	width: 100%;
 	white-space: nowrap;
 	overflow: visible;
-	
+	padding: 0 .4rem;
 	z-index: 5;
 	
 	.left, 
-	.right {
-		padding: $navbar-padding $navbar-padding / 1.5;
+	.right,
+	.center {
+		padding: $navbar-padding 0;
 	}
 	
 	.right {
@@ -26,6 +24,10 @@ $navbar-padding   :        10px;
 	
 	.left {
 		float: left;
+	}
+	
+	.center {
+		text-align: center;
 	}
 	
 	a {
