@@ -22,11 +22,59 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 /*
-    Created on : Jun 17, 2019, 11:49:32 AM
+    Created on : Aug 22, 2019, 4:33:17 PM
     Author     : César de la Cal Bretschneider <cesar@magic3w.com>
 */
 
-@import 'form/_reset.scss';
-@import 'form/_controls.scss';
-@import 'form/_select.scss';
-@import 'form/_groups.scss';
+.frm-ctrl-grp
+{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	transition: box-shadow .2s ease;
+	
+	.frm-ctrl {
+		width: 1px;
+		flex-grow: 1;
+		flex-shrink: 1;
+		border-radius: 0;
+		border-left-style: none;
+		border-right-style: none;
+		
+		&:first-child {
+			border-radius: 3px 0 0 3px;
+			border-left-style: solid;
+		}
+		
+		&:last-child {
+			border-radius: 0 3px 3px 0;
+			border-right-style: solid;
+		}
+		
+		&.fixed-width {
+			flex-grow: 0;
+			flex-shrink: 0;
+		}
+		
+		&.narrow {
+			width: 7rem;
+		}
+		
+		&.medium {
+			width: 12rem;
+		}
+		
+		&:focus {
+			box-shadow: none;
+			border-color: #CCC;
+		}
+	}
+	
+	&:focus-within {
+		box-shadow: 0px 0px 2px #279af1;
+		
+		.frm-ctrl {
+			border-color: #279af1;
+		}
+	}
+}

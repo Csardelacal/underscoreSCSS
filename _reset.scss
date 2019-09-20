@@ -22,11 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 /*
-    Created on : Jun 17, 2019, 11:49:32 AM
+    Created on : Aug 20, 2019, 5:06:55 PM
     Author     : César de la Cal Bretschneider <cesar@magic3w.com>
 */
 
-@import 'form/_reset.scss';
-@import 'form/_controls.scss';
-@import 'form/_select.scss';
-@import 'form/_groups.scss';
+html {
+	/*
+	 * Resets the system to use a known good system font.
+	 * See: https://furbo.org/2018/03/28/system-fonts-in-css/
+	 */
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+}

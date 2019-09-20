@@ -40,6 +40,34 @@ textarea {
 	resize: vertical;
 }
 
+input[type="text"],
+textarea {
+	border-radius: 3px;
+	border: solid 1px #CCC;
+	box-shadow: 0 0 0 transparent;
+	transition: box-shadow .15s ease;
+	
+	&:focus {
+		border-color: #279af1;
+		box-shadow: 0px 0px 2px #279af1;
+		outline: none;
+	}
+}
+
+select {
+	border-radius: 3px;
+	border: solid 1px #CCC;
+	box-shadow: 0 0 0 transparent;
+	transition: box-shadow .15s ease;
+	background: #FFF;
+	
+	&:focus {
+		border-color: #279af1;
+		box-shadow: 0px 0px 2px #279af1;
+		outline: none;
+	}
+}
+
 fieldset {
 	border: none;
 	padding: 0;
@@ -52,5 +80,5 @@ legend {
 }
 
 input[type="submit"]:not(.disabled), button:not(.disabled) {
-	curosr: pointer;
+	cursor: pointer;
 }
