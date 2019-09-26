@@ -100,3 +100,55 @@ input[type="checkbox"].frm-ctrl:checked + span.frm-ctrl-chk{
 		left: .9rem;
 	}
 }
+
+
+
+/*
+ * Radio specific styling
+ */
+input[type="radio"].frm-ctrl {
+	display: none;
+}
+
+span.frm-ctrl-rad {
+	display: inline-block;
+	border: solid .05rem #777;
+	width: 1.3rem;
+	height: 1.3rem;
+	border-radius: .65rem;
+	background-color: #DDD;
+	position: relative;
+	margin-right: .2rem;
+	vertical-align: -.4rem;
+	transition:  background-color .3s ease;
+	
+	&:before {
+		position: absolute;
+		background: #FFF;
+		top: .65rem;
+		left: .65rem;
+		height: .0rem;
+		width: .0rem;
+		content: '';
+		border-radius: 50%;
+		transition: left .3s ease, top .3s ease, width .3s ease, height .3s ease, opacity .3s ease;
+	}
+}
+
+
+input[type="radio"].frm-ctrl:checked + span.frm-ctrl-rad{ 
+	background-color: #56a1d6;
+	
+	&:before {
+		top: .3rem;
+		left: .3rem;
+		height: .6rem;
+		width: .6rem;
+		background-color: #FFF;
+		color: #FFF;
+		line-height: .9rem;
+		font-size: .9rem;
+		text-align: center;
+		font-weight: bold;
+	}
+}
