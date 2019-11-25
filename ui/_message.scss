@@ -1,0 +1,84 @@
+/*
+The MIT License
+
+Copyright 2019 César de la Cal Bretschneider <cesar@magic3w.com>.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+/*
+    Created on : Nov 4, 2019, 11:43:38 AM
+    Author     : César de la Cal Bretschneider <cesar@magic3w.com>
+*/
+
+/*
+ * Messages are used to present information to the user. This way the application
+ * can show success, error, information and warning messages.
+ */
+.message {
+	border: solid 1px #CCC;
+	border-radius: 3px;
+	background: #FAFAFA;
+	padding: 1rem 2.5rem 1rem 1.5rem;
+	color: #444;
+	position: relative;
+	
+	&.error {
+		border-color: #732c2c;
+		color: #632626;
+		background-color: #f09797;
+	}
+	
+	&.warn {
+		border-color: #2f3014;
+		color: #2f3014;
+		background-color: #e3e87d;
+	}
+	
+	&.success {
+		border-color: #266326;
+		color: #266326;
+		background-color: #c4f097;
+	}
+	
+	&.info {
+		border-color: #264463;
+		color: #264463;
+		background-color: #97c4f0;
+	}
+	
+	.discard-message {
+		position: absolute;
+		display: block;
+		font-weight: bold;
+		opacity: .6;
+		top: 0;
+		right: 0;
+		padding: 0 .6rem 1rem .6rem;
+		font-size: 1.4rem;
+		cursor: pointer;
+		
+		&:hover {
+			opacity: 1;
+		}
+		
+		&:before {
+			content: '\00d7';
+		}
+	}
+}
