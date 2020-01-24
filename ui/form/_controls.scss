@@ -106,6 +106,7 @@ span.frm-ctrl-chk.toggle {
 	margin-right: .2rem;
 	vertical-align: -.4rem;
 	transition:  background-color .3s ease;
+	border: none;
 	
 	&:before {
 		content: '';
@@ -129,8 +130,12 @@ input[type="checkbox"].frm-ctrl:checked + span.frm-ctrl-chk{
 		background-size: .8rem .8rem;
 	}
 	
-	&.toggle:before {
-		left: .9rem;
+	&.toggle {
+		border: none;
+		
+		&:before {
+			left: .9rem;
+		}
 	}
 }
 

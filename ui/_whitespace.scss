@@ -28,6 +28,14 @@ THE SOFTWARE.
 
 .spacer {
 	
+	&.minuscule {
+		height: .3rem;
+	}
+	
+	&.smaller {
+		height: .7rem;
+	}
+	
 	&.small {
 		height: 1rem;
 	}
@@ -42,6 +50,38 @@ THE SOFTWARE.
 	
 	&.huge {
 		height: 4rem;
+	}
+	
+}
+
+
+.horizontal-spacer {
+	display: inline-block;
+	height: 1px;
+	vertical-align: middle;
+	
+	&.minuscule {
+		width: .3rem;
+	}
+	
+	&.smaller {
+		width: .7rem;
+	}
+	
+	&.small {
+		width: 1rem;
+	}
+	
+	&.medium {
+		width: 2rem;
+	}
+	
+	&.large {
+		width: 3rem;
+	}
+	
+	&.huge {
+		width: 4rem;
 	}
 	
 }
