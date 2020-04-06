@@ -1,0 +1,67 @@
+/*
+The MIT License
+
+Copyright 2020 César de la Cal Bretschneider <cesar@magic3w.com>.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+/*
+    Created on : Feb 28, 2020, 5:45:31 PM
+    Author     : César de la Cal Bretschneider <cesar@magic3w.com>
+*/
+
+
+.button {
+	background: linear-gradient(90deg, #396afc, #2948ff);
+	border-radius: 4px;
+	border: none;
+	padding: .5rem 1.4rem ;
+	color: #FFF;
+	font-weight: bolder;
+	box-shadow: 2px 1px 3px rgba(0, 0, 0, .3);
+	text-decoration: none;
+	vertical-align: middle;
+	
+	&.success {
+		background: linear-gradient(-90deg, #2FAD30, #35C537);
+	}
+	
+	&.borderless {
+		background: none;
+		color: #652CA5;
+		font-weight: bold;
+		box-shadow: none;
+	}
+	
+	&.outline {
+		background: none;
+		color: #652CA5;
+		border: solid 1px #652CA5;
+		font-weight: bold;
+		box-shadow: none;
+	}
+	
+	&.small {
+		font-size: .82rem;
+		padding: .3rem .7rem;
+		border-radius: .18rem;
+		vertical-align: .15rem;
+		//line-height: 1.4 / .85;
+	}
+}

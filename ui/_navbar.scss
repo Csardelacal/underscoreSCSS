@@ -1,5 +1,4 @@
 
-$navbar-background:     #FEFEFE;
 $navbar-fontColor :        #444;
 $navbar-height    :        50px;
 $navbar-padding   :        20px;
@@ -24,12 +23,14 @@ $navbar-padding   :        20px;
 	
 	.left {
 		float: left;
+		text-align: left;
 	}
 	
 	.center {
 		text-align: center;
-	}
-	
+		white-space: nowrap;
+	}	
+
 	a {
 		text-decoration: none;
 		color: $navbar-fontColor;
