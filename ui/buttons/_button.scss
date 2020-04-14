@@ -55,6 +55,29 @@ THE SOFTWARE.
 		border: solid 1px #652CA5;
 		font-weight: bold;
 		box-shadow: none;
+		
+		&.fill-on-hover:hover {
+			background: #652CA5;
+			color: #FFF;
+			border: solid 1px #652CA5;
+		}
+	}
+	
+	@each $caption, $color in $colors {
+		
+		&.outline.button-color-#{$caption} {
+			background: none;
+			color: $color;
+			border: solid 1px $color;
+			font-weight: bold;
+			box-shadow: none;
+
+			&.fill-on-hover:hover {
+				background: $color;
+				color: #FFF;
+				border: solid 1px $color;
+			}
+		}
 	}
 	
 	&.small {
