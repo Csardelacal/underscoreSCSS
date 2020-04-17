@@ -32,6 +32,7 @@ div.row {
 	display: block;
 	margin: 0 auto;
 	width: 100%;
+	width: calc(100% - 30px);
 	
 	/*
     * Fixes an issue that browsers will have rendering the layout. Since the system
