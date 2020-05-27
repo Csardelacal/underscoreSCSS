@@ -26,6 +26,10 @@ $max_column_count: 10;
 	-webkit-box-sizing: border-box;
 	padding: 3px $spacer-width / 2;
 	width: 100%;
+	
+	img {
+		max-width: 100%;
+	}
 }
 
 div.row {

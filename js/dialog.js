@@ -10,7 +10,7 @@ depend(['m3/animation/animation'], function (animation) {
 		var close = undefined;
 		var inner = undefined;
 		var offset  = undefined;
-		var sibling = undefined;
+		var placeholder = undefined;
 		var self = this;
 		var options = options || {};
 		
@@ -31,7 +31,7 @@ depend(['m3/animation/animation'], function (animation) {
 			inner.className = 'inner';
 			backdrop.style.opacity = 0;
 			
-			sibling = element.nextSibling;
+			placeholder = element.parentNode.insertBefore(document.createElement('span'), element);
 			inner.appendChild(element);
 			
 			if (options.width) { dialog.style.width = options.width; }
@@ -64,7 +64,9 @@ depend(['m3/animation/animation'], function (animation) {
 			}, 300, 'ease');
 			
 			setTimeout(function () {
-				sibling.parentNode.insertBefore(element, sibling);
+				placeholder.parentNode.insertBefore(element, placeholder);
+				placeholder.parentNode.removeChild(placeholder);
+				
 				backdrop.parentNode.removeChild(backdrop);
 
 				document.body.classList.remove('has-dialog');
@@ -72,7 +74,7 @@ depend(['m3/animation/animation'], function (animation) {
 				//Move element out of wrapper
 				//Dismantle dialog
 				visible = false;
-		}, 300);
+			}, 300);
 		};
 		
 		this.toggle = function () {
