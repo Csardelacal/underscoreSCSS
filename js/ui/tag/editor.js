@@ -29,7 +29,7 @@ depend('_scss/ui/tag/editor', ['m3/core/collection'], function (collect) {
 			 * When the key pressed is a comma, the tag is committed to the list 
 			 * of tags.
 			 */
-			if (e.key === ',') { 
+			if (ctx.input.value.trim().length !== 0 && (e.key === ',' || e.key === 'Enter' || e.key === 'Tab')) { 
 				ctx.tags.push(new Tag(this.value));
 				ctx.redraw();
 				this.value = '';
@@ -61,9 +61,17 @@ depend('_scss/ui/tag/editor', ['m3/core/collection'], function (collect) {
 			this.rendered.innerHTML = '';
 			this.tags.each(function (e) {
 				var span = document.createElement('span');
+				var del  = document.createElement('span');
+				
 				span.appendChild(document.createTextNode(e.content));
+				span.className =  'tag-editor tag-editor-tag';
+				span.addEventListener('click', function () { ctx.input.value.trim() && ctx.tags.push(new Tag(ctx.input.value)); ctx.remove(e); ctx.input.value = e.content; })
 				ctx.rendered.appendChild(span);
-				span.addEventListener('click', function () { ctx.remove(e); });
+				
+				span.appendChild(del);
+				del.className =  'tag-editor tag-editor-delete';
+				del.addEventListener('click', function (ev) { ctx.remove(e); ev.stopPropagation(); });
+				
 			});
 		},
 		
