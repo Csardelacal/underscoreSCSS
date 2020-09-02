@@ -56,6 +56,12 @@ THE SOFTWARE.
 }
 
 input[type="text"].frm-ctrl,
+input[type="url"].frm-ctrl,
+input[type="tel"].frm-ctrl,
+input[type="search"].frm-ctrl,
+input[type="number"].frm-ctrl,
+input[type="password"].frm-ctrl,
+input[type="email"].frm-ctrl,
 textarea.frm-ctrl {
 	padding: .75rem .5rem;
 }
