@@ -85,6 +85,8 @@ legend {
 	margin-bottom: .3rem;
 }
 
-input[type="submit"]:not(.disabled), button:not(.disabled) {
+input[type="submit"]:not([disabled]),
+button:not([disabled])
+{
 	cursor: pointer;
 }
