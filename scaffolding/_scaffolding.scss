@@ -54,13 +54,13 @@ div.row {
 		max-width: 100%;
 	}
 	
-	&.ng .span {
+	&.ng>.span {
 		padding: 0;
 	}
 	
 	&.ng-lr {
 		
-		.span:first-child {
+		&>.span:first-child {
 			padding-left: 0;
 		}
 		
