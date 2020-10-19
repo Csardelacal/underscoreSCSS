@@ -1,0 +1,49 @@
+
+
+.badge {
+	font-size: .75em;
+	border: solid 1px $purple900;
+	padding: .1em .3em;
+	border-radius: .25em;
+	vertical-align: .1em;
+	font-weight: bold;
+	color: #FFF;
+	background: $purple700;
+	box-shadow: -1px -2px 3px rgba(255, 255, 255, 0.2) inset;
+
+	&.bg-red {
+		background-color: $red700;
+		border-color: $red900;
+	}
+
+	&.bg-green {
+		background-color: $green700;
+		border-color: $green900;
+	}
+
+	&.bg-blue {
+		background-color: $blue800;
+		border-color: $blue900;
+	}
+
+	&.bg-orange {
+		background-color: $orange700;
+		border-color: $orange900;
+	}
+
+	&.bg-grey {
+		background-color: $grey700;
+		border-color: $grey900;
+	}
+
+	@each $name, $color in $colors {
+		&.bg-#{$name} {
+			background-color: $color;
+			border-color: darken($color, 20%);
+		}
+
+		&.border-#{$name} {
+			border-color: $color;
+		}
+	}
+}

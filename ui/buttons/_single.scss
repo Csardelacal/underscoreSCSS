@@ -1,0 +1,72 @@
+$button-border-width: 1rem / 16;
+
+.button {
+	display: inline-block;
+	background: linear-gradient(90deg, #396afc, #2948ff);
+	border-radius: $button-border-radius;
+	border: transparent solid $button-border-width;
+	padding: .75rem 1.4rem ;
+	color: #FFF;
+	font-weight: bolder;
+	box-shadow: 2px 1px 3px rgba(0, 0, 0, .3);
+	text-decoration: none;
+	vertical-align: middle;
+	height: 2.6rem;
+	line-height: 2.6rem - 2 * .75rem - 2 * $button-border-width;
+	font-size: 2.6rem - 2 * .75rem - 2 * $button-border-width;
+	cursor: pointer;
+	
+	
+	&.success {
+		background: linear-gradient(-90deg, #2FAD30, #35C537);
+	}
+	
+	&.borderless {
+		background: none;
+		color: #652CA5;
+		font-weight: bold;
+		box-shadow: none;
+		border: solid  $button-border-width transparent;
+	}
+	
+	&.outline {
+		background: none;
+		color: #652CA5;
+		border: solid $button-border-width #652CA5;
+		font-weight: bold;
+		box-shadow: none;
+		
+		&.fill-on-hover:hover, .filled {
+			background: #652CA5;
+			color: #FFF;
+			border: solid $button-border-width #652CA5;
+		}
+	}
+	
+	@each $caption, $color in $colors {
+		
+		&.outline.button-color-#{$caption} {
+			color: $color;
+			border: solid $button-border-width $color;
+		}
+
+		&.button-color-#{$caption}.filled,
+		&.hover-fill-#{$caption}:hover {
+			background: $color;
+			color: #FFF;
+			border: solid $button-border-width $color;
+		}
+	
+		&.borderless.button-color-#{$caption} {
+			color: $color;
+		}
+	}
+	
+	&.small {
+		font-size: .82rem;
+		padding: (2rem - $button-border-width - $button-border-width - .82)/2 .7rem;
+		border-radius: $button-border-small-radius;
+		height: 2rem;
+		line-height: .82rem;
+	}
+}

@@ -1,0 +1,167 @@
+/*
+The MIT License
+
+Copyright 2019 César de la Cal Bretschneider <cesar@magic3w.com>.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+/*
+	Created on : Dec 9, 2019, 4:25:00 PM
+	Updated    : Sep 9, 2020
+    Author     : César de la Cal Bretschneider <cesar@magic3w.com>
+*/
+
+$grey050: #F6F9FA;
+$grey100: #F1F2F3;
+$grey200: #E6E8EA;
+$grey300: #C1C8CD;
+$grey400: #A9B3B9;
+$grey500: #8D99A3;
+$grey600: #74838E;
+$grey700: #5F6C75;
+$grey800: #464F56;
+$grey900: #31383D;
+$grey950: #23282C;
+
+$orange100: #FFEEE0;
+$orange200: #FFCFA6;
+$orange300: #FFBC84;
+$orange400: #F7A15A;
+$orange500: #FF8A29;
+$orange600: #FF8117;
+$orange700: #FF7400;
+$orange800: #FF5E00;
+$orange900: #A13B00;
+
+$red100   : #FFF6F2;
+$red200   : #FFD3C0;
+$red300   : #FF8474;
+$red400   : #FF7361;
+$red500   : #FF6057;
+$red600   : #FF4D4D;
+$red700   : #E93536;
+$red800   : #D82C29;
+$red900   : #9B0C00;
+
+$green100   : #DFFFE2;
+$green200   : #D1FFD6;
+$green300   : #A9FFC9;
+$green400   : #13ef8f;
+$green500   : #00E47F;
+$green600   : #00CB71;
+$green700   : #009554;
+$green800   : #007743;
+$green900   : #034528;
+
+$blue100    : #ECF5FF;
+$blue200    : #DEEEFF;
+$blue300    : #A9D3FF;
+$blue400    : #8DC1F9;
+$blue500    : #68B0FF;
+$blue600    : #5AA5F7;
+$blue700    : #3988DF;
+$blue800    : #1B69BF;
+$blue900    : #003B7C;
+
+$purple100  : #F9F3FF;
+$purple200  : #EEE8FF;
+$purple300  : #BA9FFF;
+$purple400  : #A17CFF;
+$purple500  : #8356F5;
+$purple600  : #742CD5;
+$purple700  : #6F1DC9;
+$purple800  : #49009A;
+$purple900  : #360073;
+
+$white   : #FFFFFF;
+
+$purple300: #396afc;
+
+$colors : (
+	"grey-050": $grey050, 
+	"grey-100": $grey100, 
+	"grey-200": $grey200, 
+	"grey-300": $grey300, 
+	"grey-400": $grey400, 
+	"grey-500": $grey500, 
+	"grey-600": $grey600, 
+	"grey-700": $grey700, 
+	"grey-800": $grey800, 
+	"grey-900": $grey900,
+
+	"orange-100": $orange100, 
+	"orange-200": $orange200, 
+	"orange-300": $orange300, 
+	"orange-400": $orange400, 
+	"orange-500": $orange500, 
+	"orange-600": $orange600, 
+	"orange-700": $orange700, 
+	"orange-800": $orange800, 
+	"orange-900": $orange900,
+
+	"red-100": $red100, 
+	"red-200": $red200, 
+	"red-300": $red300, 
+	"red-400": $red400, 
+	"red-500": $red500, 
+	"red-600": $red600, 
+	"red-700": $red700, 
+	"red-800": $red800, 
+	"red-900": $red900,
+
+	"green-100": $green100, 
+	"green-200": $green200, 
+	"green-300": $green300, 
+	"green-400": $green400, 
+	"green-500": $green500, 
+	"green-600": $green600, 
+	"green-700": $green700, 
+	"green-800": $green800, 
+	"green-900": $green900,
+
+	"blue-100": $blue100, 
+	"blue-200": $blue200, 
+	"blue-300": $blue300, 
+	"blue-400": $blue400, 
+	"blue-500": $blue500, 
+	"blue-600": $blue600, 
+	"blue-700": $blue700, 
+	"blue-800": $blue800, 
+	"blue-900": $blue900,
+
+	"purple-100": $purple100, 
+	"purple-200": $purple200, 
+	"purple-300": $purple300, 
+	"purple-400": $purple400, 
+	"purple-500": $purple500, 
+	"purple-600": $purple600, 
+	"purple-700": $purple700, 
+	"purple-800": $purple800, 
+	"purple-900": $purple900,
+	
+	"white"     : $white,
+);
+
+$documentBackground: $grey050;
+
+$activeStateBorder: $purple300;
+$activeStateBackground: $white;
+
+$inactiveStateBorder: $blue500;
+$inactiveStateBackground: $white;

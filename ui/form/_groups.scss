@@ -26,29 +26,114 @@ THE SOFTWARE.
     Author     : César de la Cal Bretschneider <cesar@magic3w.com>
 */
 
-.frm-ctrl-grp
-{
+
+.frm-ctrl-grp {
+	transition: .2s ease all;
 	display: flex;
 	flex-direction: row;
-	width: 100%;
-	transition: box-shadow .2s ease;
-	
-	.frm-ctrl {
-		width: 1px;
+	justify-content: space-around;
+
+	/*
+	 * Form controls directly embedded into the group will be sized using
+	 * flex so they occupy the entire width of the group.
+	 */
+	&>.frm-ctrl-outer,
+	&>.frm-ctrl  {
 		flex-grow: 1;
-		flex-shrink: 1;
-		border-radius: 0;
-		border-left-style: none;
-		border-right-style: none;
-		
+	}
+
+	/*
+	 * Form controls inside outer groups, should take the entire width.
+	 * Usually, the outer wrappers will adjust, but in this case we wish the 
+	 * children to adjust to the parent.
+	 */
+	.frm-ctrl-outer .frm-ctrl {
+		overflow: hidden;
+		width: 100%;
+
+
+		input:focus {
+			color: #1470b3;
+		}
+	}
+
+	.frm-ctrl-ro {
+		width: 100%;
+		display: inline-block;
+		background: #FAFAFA;
+		border: 1px solid #CCC;
+		height: ($controlHeight + map-get($controlPadding, "x") * .5);
+		font-size: 1rem;
+		line-height: 1.8rem;
+		overflow: hidden;
+
+		padding: 
+			map-get($controlPadding, "x")*1.5 
+			map-get($controlPadding, "y") 
+			map-get($controlPadding, "x");
+
+		&.ctrl-borderless {
+			border: none;
+			background: $controlBorderlessBg;
+		}
+
+		&.ctrl-android {
+			border-radius: 0;
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: solid .2rem #BBB;
+			background: $controlBorderlessBg;
+		}
+	}
+	
+	&>.frm-ctrl-outer {
+
+		.frm-ctrl-ro
+		.frm-ctrl,
+		input[type="text"].frm-ctrl {
+			border-radius: 0;
+			border-left-style: none;
+			border-right-style: none;
+			
+		}
+
 		&:first-child {
-			border-radius: 3px 0 0 3px;
-			border-left-style: solid;
+			.frm-ctrl-ro,
+			.frm-ctrl,
+			input[type="text"].frm-ctrl {
+				border-radius: 3px 0 0 3px;
+				border-left-style: solid;
+
+				&.ctrl-borderless {
+					border-style: none;
+				}
+
+				&.ctrl-android {
+					border-left-style: none;
+					border-right-style: none;
+					border-radius: 0;
+				}
+			}
 		}
 		
 		&:last-child {
-			border-radius: 0 3px 3px 0;
-			border-right-style: solid;
+			.frm-ctrl-ro,
+			.frm-ctrl,
+			input[type="text"].frm-ctrl {
+				border-radius: 0 3px 3px 0;
+				border-right-style: solid;
+
+				&.ctrl-borderless {
+					border-style: none;
+				}
+
+				&.ctrl-android {
+					border-left-style: none;
+					border-right-style: none;
+					border-radius: 0;
+				}
+			}
 		}
 		
 		&.fixed-width {
@@ -64,17 +149,5 @@ THE SOFTWARE.
 			width: 12rem;
 		}
 		
-		&:focus {
-			box-shadow: none;
-			border-color: #CCC;
-		}
-	}
-	
-	&:focus-within {
-		box-shadow: 0px 0px 2px #279af1;
-		
-		.frm-ctrl {
-			border-color: #279af1;
-		}
 	}
 }

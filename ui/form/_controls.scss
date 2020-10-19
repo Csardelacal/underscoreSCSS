@@ -26,26 +26,38 @@ THE SOFTWARE.
     Author     : César de la Cal Bretschneider <cesar@magic3w.com>
 */
 
+/*
+ * A form control is anything the user can interact with when filling out a form,
+ * this includes inputs, textareas and selects.
+ */
 .frm-ctrl {
 	display: block;
 	width: 100%;
 	
-	&.right {
-		text-align: right;
+	&.ctrl-borderless {
+		border: solid 1px $controlBorderlessBg;
+		background-color: $controlBorderlessBg;
+
+		&:active,
+		&:focus {
+			border: solid 1px $controlBorderlessBg;
+			box-shadow: none;
+		}
 	}
-}
 
-.frm-group {
-	margin-bottom: 1rem;
-}
+	&.ctrl-android {
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		border-bottom: solid .2rem #BBB;
+		border-radius: 0;
+		background-color: $controlBorderlessBg;
 
-.frm-inline {
-	display: flex;
-	flex-flow: row wrap;
-	
-	.frm-ctrl {
-		display: inline-block;
-		width: auto;
+		&:active,
+		&:focus {
+			box-shadow: none;
+			border-bottom: solid .2rem #1470b3;
+		}
 	}
 }
 
@@ -55,6 +67,7 @@ THE SOFTWARE.
 	font-size: .9rem;
 }
 
+input:not([type]).frm-ctrl,
 input[type="text"].frm-ctrl,
 input[type="url"].frm-ctrl,
 input[type="tel"].frm-ctrl,
@@ -63,9 +76,41 @@ input[type="number"].frm-ctrl,
 input[type="password"].frm-ctrl,
 input[type="email"].frm-ctrl,
 textarea.frm-ctrl {
-	padding: .75rem .5rem;
-}
 
+	border: solid 1px #CCC;
+	height: $controlHeight;
+	padding: 
+		map-get($controlPadding, "y")
+		map-get($controlPadding, "x");
+
+	
+	&.ctrl-borderless {
+		border: solid 1px $controlBorderlessBg;
+		background-color: $controlBorderlessBg;
+
+		&:active,
+		&:focus {
+			border: solid 1px $controlBorderlessBg;
+			box-shadow: none;
+		}
+	}
+
+	&.ctrl-android {
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		border-bottom: solid .2rem #BBB;
+		border-radius: 0;
+		background-color: $controlBorderlessBg;
+
+		&:active,
+		&:focus {
+			box-shadow: none;
+			border-bottom: solid .2rem #1470b3;
+		}
+	}
+
+}
 
 /*
  * Checkbox specific styling
@@ -195,4 +240,108 @@ input[type="radio"].frm-ctrl:checked + span.frm-ctrl-rad{
 		text-align: center;
 		font-weight: bold;
 	}
+}
+
+/*
+ * The outer wrappers for form controls allow the system to style form controls
+ * in a very interactive way that makes the label behave like a placeholder and 
+ * but does not lose the context of the input.
+ */ 
+.frm-ctrl-outer {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: $controlHeight;
+}
+
+/*
+ * When the outer control wraps around an input, select, textarea, or label, the 
+ * application should reset their styles to a state that we can manage.
+ */
+.frm-ctrl-outer label,
+.frm-ctrl-outer input[type="text"].frm-ctrl,
+.frm-ctrl-outer textarea.frm-ctrl,
+.frm-ctrl-outer select.frm-ctrl {
+	display: inline-block;
+
+
+	height: ($controlHeight + map-get($controlPadding, "x") * .5);
+	font-size: $controlFontSize;
+	line-height: $controlFontSize * 1.4;
+
+	/*
+	 * The padding of these inputs needs to be carefully managed, unlike the regular HTML elements
+	 * where the text should be centered, these offset the text slightly in order to make it fit 
+	 * together with the label in the input.
+	 */
+	padding: 
+		map-get($controlPadding, "y")*1.5 
+		map-get($controlPadding, "x") 
+		map-get($controlPadding, "y");
+
+	// Some browsers would like to render an outline around our form, this is not what we want
+	// either
+	outline: none;
+
+	// The appearance needs to be appropriately set for the browsers to not render UI components
+	// within our inputs.
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.frm-ctrl-outer input[type="text"].frm-ctrl,
+.frm-ctrl-outer select,
+.frm-ctrl-outer textarea {
+	min-width: 10rem;
+	border-radius: .3rem;
+	transition: .2s ease all;
+
+	&.ctrl-android {
+		border-radius: 0;
+	}
+}
+
+
+.frm-ctrl-outer label {
+	transform-origin: top left;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transition: .2s ease all;
+	color: #444;
+	background-color: transparent;
+	cursor: text;
+	user-select: none;
+	padding: map-get($controlPadding, "y") 0rem 0rem 0rem;
+	left: map-get($controlPadding, "x");
+}
+
+
+.frm-ctrl-outer input[type="text"].frm-ctrl:placeholder-shown +  label {
+	transform: scale(1);
+}
+
+.frm-ctrl-outer input[type="text"].frm-ctrl +  label,
+.frm-ctrl-outer select +  label,
+.frm-ctrl-outer input[type="text"].frm-ctrl:focus +  label {
+	transform: scale(.6);
+	color: #444;
+	height: 2rem;
+}
+
+.frm-ctrl-outer input[type="text"].frm-ctrl:not(.ctrl-borderless):not(.ctrl-android):focus {
+	border: solid 1px #1470b3;
+}
+
+
+.frm-ctrl-outer input[type="text"].frm-ctrl:focus +  label {
+	color: #1c89d6;
+}
+
+.frm-ctrl-outer input[type="text"].frm-ctrl.ctrl-borderless:focus +  label {
+	color: #222;
+}
+
+.frm-ctrl-outer input[type="text"].frm-ctrl.ctrl-android:focus +  label {
+	color: #222;
 }
