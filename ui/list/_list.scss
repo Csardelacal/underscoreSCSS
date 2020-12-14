@@ -22,38 +22,67 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 /*
-    Created on : Aug 20, 2019, 5:06:55 PM
+    Created on : May 22, 2019, 9:47:20 AM
     Author     : César de la Cal Bretschneider <cesar@magic3w.com>
 */
 
-html {
-	/*
-	 * Resets the system to use a known good system font.
-	 * See: https://furbo.org/2018/03/28/system-fonts-in-css/
-	 */
-	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-	"Droid Sans", "Helvetica Neue", sans-serif;
-	
-	line-height: 1.2;
-}
+.list {
+	display: block;
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-	margin: 0;
-	padding: 0;
-}
+	.list-item {
+		display: block;
+		width: 100%;
+		background: #FFF;
+		text-align: left;
+		font-family: inherit;
+		height: 3.2rem;
+		line-height: (3.2rem - 1rem);
+		padding: .5rem .75rem;
+		border: solid (1/16)*1rem $grey200;
+		border-top-style: none;
 
-a {
-	color: $blue600;
-	text-decoration: none;
+		&:first-child {
+			border-top-style: solid;
+			border-radius: .3rem .3rem 0 0;
+		}
 
-	&:hover {
-		text-decoration: underline;
+		&:last-child {
+			border-radius: 0 0 .3rem .3rem;
+		}
+	}
+
+	& > a.list-item,
+	& > button.list-item {
+		transition: background-color .3s ease;
+
+		&:hover {
+			background-color: $grey050;
+			text-decoration: none;
+		}
+
+		&.active {
+			color: $white;
+			background-color: $blue700;
+			border-color: $blue800;
+		}
+
+		&.disabled {
+			background-color: $grey050;
+			color: $grey500;
+		}
+	}
+
+	&.borderless .list-item {
+		border-left-style: none;
+		border-right-style: none;
+		border-radius: 0;
+
+		&:first-child {
+			border-top-style: none;
+		}
+
+		&:last-child {
+			border-bottom-style: none;
+		}
 	}
 }

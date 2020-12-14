@@ -1,0 +1,38 @@
+
+.caret {
+    display: inline-block;
+    width: 1em;
+    height: 1.2em;
+    vertical-align: -.15em;
+    color: inherit;
+    text-align: center;
+    
+    &::after {
+        border-width: .35em;
+        border-style: solid solid none solid;
+        border-color: currentColor transparent transparent transparent;
+
+        content: "";
+        display: inline-block;
+        height: 0;
+        width: 0;
+        vertical-align: .35em;
+    }
+
+    &.caret-point-up::after {
+        border-style: none solid solid solid;
+        border-color: transparent transparent currentColor transparent;
+    }
+
+    &.caret-point-left::after {
+        vertical-align: .20em;
+        border-style: solid solid solid none;
+        border-color: transparent currentColor transparent transparent;
+    }
+
+    &.caret-point-right::after {
+        vertical-align: .20em;
+        border-style: solid none solid solid;
+        border-color: transparent transparent transparent currentColor;
+    }
+}

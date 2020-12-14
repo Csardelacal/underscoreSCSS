@@ -1,31 +1,53 @@
-$button-border-width: 1rem / 16;
 
 .button {
+	/*
+	 * We default the text color of buttons to white, since most buttons will have
+	 * a darker solid background that fills the button.
+	 */
+	color: $white;
+
+	/*
+	 * Buttons are inline elements, which means that we wish to have them behave accordingly
+	 * in the context of inline components.
+	 * 
+	 * CSS makes it extraordinarily challenging to mix static and inline-block elements, while
+	 * maintaining a good vertical alignment. Most of the time the baseline will behave improperly
+	 * and the elements will shift.
+	 * 
+	 * While I understand that this is a challenge that something like CSS just faces, we like 
+	 * to handle all our elements that are to be displayed as inline blocks with a static height,
+	 * so they become better behaved and are able to align vertically with the rest.
+	 */
 	display: inline-block;
+	vertical-align: middle;
+	height: $buttonHeight;
+	line-height: $buttonHeight - 2 * map-get($buttonPadding, "y") - 2 * $button-border-width;
+	font-size: ($buttonHeight - 2 * map-get($buttonPadding, "y") - 2 * $button-border-width) / 1.4;
+
+
+	/*
+	 * Buttons are always clickable elements, and therefore should indicate their clickability to the
+	 * user by setting setting the cursor to a clicking hand.
+	 */
+	cursor: pointer;
+	
 	background: linear-gradient(90deg, #396afc, #2948ff);
 	border-radius: $button-border-radius;
 	border: transparent solid $button-border-width;
-	padding: .75rem 1.4rem ;
-	color: #FFF;
+	padding: map-get($buttonPadding, "y") map-get($buttonPadding, "x");
 	font-weight: bolder;
-	box-shadow: 2px 1px 3px rgba(0, 0, 0, .3);
 	text-decoration: none;
-	vertical-align: middle;
-	height: 2.6rem;
-	line-height: 2.6rem - 2 * .75rem - 2 * $button-border-width;
-	font-size: 2.6rem - 2 * .75rem - 2 * $button-border-width;
-	cursor: pointer;
-	
-	
-	&.success {
-		background: linear-gradient(-90deg, #2FAD30, #35C537);
+	transition: background-color .3s ease, border-color .3s ease;
+
+	&:hover {
+		text-decoration: none;
 	}
+	
 	
 	&.borderless {
 		background: none;
 		color: #652CA5;
 		font-weight: bold;
-		box-shadow: none;
 		border: solid  $button-border-width transparent;
 	}
 	
@@ -36,7 +58,7 @@ $button-border-width: 1rem / 16;
 		font-weight: bold;
 		box-shadow: none;
 		
-		&.fill-on-hover:hover, .filled {
+		&.fill-on-hover:hover, .solid {
 			background: #652CA5;
 			color: #FFF;
 			border: solid $button-border-width #652CA5;
@@ -50,8 +72,10 @@ $button-border-width: 1rem / 16;
 			border: solid $button-border-width $color;
 		}
 
-		&.button-color-#{$caption}.filled,
-		&.hover-fill-#{$caption}:hover {
+		&.solid.button-color-#{$caption},
+		&.solid.hover-fill-#{$caption}:hover,
+		&.outline.hover-fill-#{$caption}:hover,
+		&.borderless.hover-fill-#{$caption}:hover {
 			background: $color;
 			color: #FFF;
 			border: solid $button-border-width $color;

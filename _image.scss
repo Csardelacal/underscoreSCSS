@@ -1,0 +1,65 @@
+
+/*
+ * It's a safe default to assume that images that are within a column of a
+ * grid are taking in the entire width of the parent.
+ */
+.span > img,
+.span > picture ,
+.span > svg {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+img.inline,
+svg.inline,
+picture.inline {
+	height: 1.20em;
+	vertical-align: -.2em;
+	width: auto;
+	display: inline-block;
+
+	&.cap-height {
+		height: 1em;
+		vertical-align: -.2em;
+	}
+}
+
+svg.img-round,
+picture.img-round,
+img.img-round {
+	border-radius: 50%;
+}
+
+
+img.img-soft-corners,
+svg.img-soft-corners,
+picture.img-soft-corners {
+	border-radius: .4rem;
+}
+
+img.img-soft-corners-bottom {
+	border-bottom-left-radius: .4rem;
+	border-bottom-right-radius: .4rem;
+}
+
+img.img-soft-corners-top {
+	border-top-left-radius: .4rem;
+	border-top-right-radius: .4rem;
+}
+
+img.img-soft-corner-top-left {
+	border-top-left-radius: .4rem;
+}
+
+img.img-soft-corner-top-right {
+	border-top-right-radius: .4rem;
+}
+
+img.img-soft-corner-bottom-left {
+	border-bottom-left-radius: .4rem;
+}
+
+img.img-soft-corner-bottom-right {
+	border-bottom-right-radius: .4rem;
+}

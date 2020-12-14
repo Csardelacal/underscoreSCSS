@@ -1,0 +1,29 @@
+
+$box-padding-y : .8rem;
+
+.box {
+    border: solid 1px $grey300;
+    overflow: hidden;
+    transition: box-shadow .3s ease;;
+
+    &.padded {
+        padding: $box-padding-y .8rem;
+    }
+
+    .padded {
+        padding: $box-padding-y .8rem;
+    }
+
+    &.box-soft {
+        border-radius: .3rem;
+    }
+
+    &.box-very-soft {
+        border-radius: .6rem;
+    }
+
+    &.box-drop-shadow,
+    &.box-drop-shadow-on-hover:hover {
+        box-shadow: 0 0 .3rem $grey200,  0 0 .6rem $grey100;
+    }
+}

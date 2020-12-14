@@ -1,0 +1,18 @@
+
+$button-border-width: 1rem / 16;
+
+/*
+ * Define the button radius' for small and large buttons.
+ * 
+ * These radiuses are affected by the size of the button, and it's extremely
+ * difficult to determine the radius of a button programmatically, since they
+ * are not directly correlated.
+ */
+$button-border-radius: 4px;
+$button-border-small-radius: .18rem;
+
+$buttonHeight: 3.25rem;
+$buttonPadding:  (
+	x: 1.1rem,
+	y: .75rem
+);

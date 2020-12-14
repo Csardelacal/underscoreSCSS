@@ -260,6 +260,7 @@ input[type="radio"].frm-ctrl:checked + span.frm-ctrl-rad{
  */
 .frm-ctrl-outer label,
 .frm-ctrl-outer input[type="text"].frm-ctrl,
+.frm-ctrl-outer input[type="password"].frm-ctrl,
 .frm-ctrl-outer textarea.frm-ctrl,
 .frm-ctrl-outer select.frm-ctrl {
 	display: inline-block;
@@ -290,6 +291,7 @@ input[type="radio"].frm-ctrl:checked + span.frm-ctrl-rad{
 }
 
 .frm-ctrl-outer input[type="text"].frm-ctrl,
+.frm-ctrl-outer input[type="password"].frm-ctrl,
 .frm-ctrl-outer select,
 .frm-ctrl-outer textarea {
 	min-width: 10rem;
@@ -317,31 +319,35 @@ input[type="radio"].frm-ctrl:checked + span.frm-ctrl-rad{
 }
 
 
-.frm-ctrl-outer input[type="text"].frm-ctrl:placeholder-shown +  label {
+.frm-ctrl-outer input[type="text"].frm-ctrl:placeholder-shown +  label,
+.frm-ctrl-outer input[type="password"].frm-ctrl:placeholder-shown +  label {
 	transform: scale(1);
+	top: .3rem;
 }
 
 .frm-ctrl-outer input[type="text"].frm-ctrl +  label,
+.frm-ctrl-outer input[type="password"].frm-ctrl +  label,
 .frm-ctrl-outer select +  label,
-.frm-ctrl-outer input[type="text"].frm-ctrl:focus +  label {
+.frm-ctrl-outer input[type="text"].frm-ctrl:focus +  label,
+.frm-ctrl-outer input[type="password"].frm-ctrl:focus +  label {
 	transform: scale(.6);
 	color: #444;
 	height: 2rem;
-}
-
-.frm-ctrl-outer input[type="text"].frm-ctrl:not(.ctrl-borderless):not(.ctrl-android):focus {
-	border: solid 1px #1470b3;
+	top: 0;
 }
 
 
-.frm-ctrl-outer input[type="text"].frm-ctrl:focus +  label {
+.frm-ctrl-outer input[type="text"].frm-ctrl:focus +  label,
+.frm-ctrl-outer input[type="password"].frm-ctrl:focus +  label {
 	color: #1c89d6;
 }
 
-.frm-ctrl-outer input[type="text"].frm-ctrl.ctrl-borderless:focus +  label {
+.frm-ctrl-outer input[type="text"].frm-ctrl.ctrl-borderless:focus +  label,
+.frm-ctrl-outer input[type="password"].frm-ctrl.ctrl-borderless:focus +  label {
 	color: #222;
 }
 
-.frm-ctrl-outer input[type="text"].frm-ctrl.ctrl-android:focus +  label {
+.frm-ctrl-outer input[type="text"].frm-ctrl.ctrl-android:focus +  label,
+.frm-ctrl-outer input[type="password"].frm-ctrl.ctrl-android:focus +  label {
 	color: #222;
 }

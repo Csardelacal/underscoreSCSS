@@ -26,8 +26,16 @@ THE SOFTWARE.
     Author     : César de la Cal Bretschneider <cesar@magic3w.com>
 */
 
-$button-border-radius: 4px;
-$button-border-small-radius: .18rem;
 
+@import '_vars.scss';
 @import '_single.scss';
 @import '_groups.scss';
+
+button.no-appearance {
+	border: none;
+	background: none;
+	height: 100%;
+	width: 100%;
+	padding: 0; 
+	margin: 0;
+}

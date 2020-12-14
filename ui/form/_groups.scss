@@ -52,23 +52,25 @@ THE SOFTWARE.
 		width: 100%;
 
 
-		input:focus {
+		&:focus {
+			outline: none;
 			color: #1470b3;
+			box-shadow: none;
 		}
 	}
 
 	.frm-ctrl-ro {
 		width: 100%;
 		display: inline-block;
-		background: #FAFAFA;
+		background: #FFF;
 		border: 1px solid #CCC;
 		height: ($controlHeight + map-get($controlPadding, "x") * .5);
 		font-size: 1rem;
-		line-height: 1.8rem;
+		line-height: 1.8rem + map-get($controlPadding, "x")*.5;
 		overflow: hidden;
 
 		padding: 
-			map-get($controlPadding, "x")*1.5 
+			map-get($controlPadding, "x") 
 			map-get($controlPadding, "y") 
 			map-get($controlPadding, "x");
 
@@ -89,9 +91,10 @@ THE SOFTWARE.
 	
 	&>.frm-ctrl-outer {
 
-		.frm-ctrl-ro
+		.frm-ctrl-ro, 
 		.frm-ctrl,
-		input[type="text"].frm-ctrl {
+		input[type="text"].frm-ctrl,
+		input[type="password"].frm-ctrl {
 			border-radius: 0;
 			border-left-style: none;
 			border-right-style: none;
@@ -101,8 +104,9 @@ THE SOFTWARE.
 		&:first-child {
 			.frm-ctrl-ro,
 			.frm-ctrl,
-			input[type="text"].frm-ctrl {
-				border-radius: 3px 0 0 3px;
+			input[type="text"].frm-ctrl,
+			input[type="password"].frm-ctrl {
+				border-radius: .3rem 0 0 .3rem;
 				border-left-style: solid;
 
 				&.ctrl-borderless {
@@ -120,8 +124,9 @@ THE SOFTWARE.
 		&:last-child {
 			.frm-ctrl-ro,
 			.frm-ctrl,
-			input[type="text"].frm-ctrl {
-				border-radius: 0 3px 3px 0;
+			input[type="text"].frm-ctrl,
+			input[type="password"].frm-ctrl {
+				border-radius: 0 .3rem .3rem 0;
 				border-right-style: solid;
 
 				&.ctrl-borderless {

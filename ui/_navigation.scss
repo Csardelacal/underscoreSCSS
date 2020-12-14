@@ -32,6 +32,13 @@ THE SOFTWARE.
 		display: inline-block;
 		padding: .8em 1em;
 		font-size: 1em;
+		color: #333333;
+		text-decoration: none;
+		transition: background-color .15s ease;
+		
+		&:hover {
+			background: $grey050;
+		}
 	}
 
 	&.tabs {

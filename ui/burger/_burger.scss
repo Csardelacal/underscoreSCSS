@@ -1,0 +1,78 @@
+/*
+The MIT License
+
+Copyright 2019 César de la Cal Bretschneider <cesar@magic3w.com>.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+/*
+    Created on : Aug 30, 2019, 4:28:26 PM
+    Author     : César de la Cal Bretschneider <cesar@magic3w.com>
+*/
+
+
+/*
+ * I am a bit dissatisfied with the fact that the burgers do have a different
+ * sizing to all the other elements (and the lack of consistency within _SCSS overall)
+ * but in this case it should be fine, since the elements will, most likely, never
+ * mingle with the burgers.
+ */ 
+$burger-height: 2.0rem;
+$burger-width:  1.6rem;
+$burger-segment:  .25rem;
+$burger-segment-width: 1.5rem;
+$burger-light: #FFF;
+$burger-dark: #777;
+
+
+/*
+ * A burger describes a component that is usually placed on the left top hand corner
+ * of the screen to provide a cue for the user to understand that clicking or tapping
+ * on this element will extend a menu that provides overall application options.
+ */
+.burger {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	cursor: pointer;
+	width : $burger-width;
+	height: $burger-height;
+	padding: 0px;
+	background-image: linear-gradient(180deg, #FFF $burger-segment, transparent $burger-segment, transparent $burger-segment * 2, #FFF $burger-segment * 2, #FFF $burger-segment * 3, transparent $burger-segment * 3, transparent $burger-segment * 4, #FFF $burger-segment * 4);
+	background-size: $burger-segment-width $burger-segment * 5;
+	background-position: center center;
+	background-repeat: no-repeat;
+
+	&.hidden {
+		display: none;
+	}
+
+	&.dark {
+		background-image: linear-gradient(180deg, $burger-dark $burger-segment, transparent $burger-segment, transparent $burger-segment * 2, $burger-dark $burger-segment * 2, $burger-dark $burger-segment * 3, transparent $burger-segment * 3, transparent $burger-segment * 4, $burger-dark $burger-segment * 4);
+
+		&:after, &:before {
+			background:   #242424;
+		}
+	}
+	
+	&.narrow {
+		background-size: 3px 17px;
+		width: 20px;
+	}
+}

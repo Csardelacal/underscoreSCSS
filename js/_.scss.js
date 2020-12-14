@@ -33,25 +33,17 @@
  * My intention for this script is to reduce it to the bare minimum, doing as much 
  * of the heavy lifting as possible in CSS / SCSS.
  */
-depend(['m3/depend/router'], function(router) {
+
+import sidebar from "./sidebar.js"
+
+sidebar(document.querySelector('.sidebar'));
 	
-	var location = document.querySelector('meta[name="_scss"]').getAttribute('content') || '/assets/scss/_/js/';
-	
-	router.startsWith('_scss/').to(function(str) {
-		return location + str.substring(6) + '.js';
-	});
-	
-	depend([/*'_scss/ui/checkbox',/**/ '_scss/sidebar'], function(sidebar) {
-		
-		sidebar(document.querySelector('.sidebar'));
-		
-		/*
-		 * Let the CSS know that the javascript required to make some of _SCSS's features
-		 * work has been loaded.
-		 */
-		var body = document.body;
-		body.classList.add('_scss-js-loaded');
-	});
-	
-	
-});
+/*
+ * Let the CSS know that the javascript required to make some of _SCSS's features
+ * work has been loaded.
+ */
+var body = document.body;
+body && body.classList.add('_scss-js-loaded');
+
+
+export {sidebar};

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+		* {
+			box-sizing: border-box;
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+		}
+
+		</style>
+		<link type="text/css" rel="stylesheet" href="../dist/_.css">
+	</head>
+	<body>
+
+		<div class="row s1">
+			<div class="span s1">
+				<div class="spacer huge"></div>
+				<p class="font-xsmall">A bit of text before the heading</p>
+				<h1>A big chunky heading.</h1>
+
+				<div class="spacer medium"></div>
+				<p class="font-small text:grey-500">
+					A small bit of text that explains what this article is about. You see text like this very often in 
+					articles where they explain what the points of the article are.
+				</p>
+				
+				<div class="spacer large"></div>
+				<p class="font-large">
+					The main text. The idea here is that depending on the context we can add spacers around the headings
+					to customize the spacing around them. While this introduces the requirement to have the developer to
+					use consistent spacers, the complexity of the CSS is incredibly reduced.
+				</p>
+				
+				<div class="spacer large"></div>
+
+				<img src="https://via.placeholder.com/1500x300" width="1500" height="300">
+				<p class="text:grey-500">Describe the image here.</p>
+				
+				<div class="spacer large"></div>
+				<p class="font-large">
+					The nice thing here is that the image can be customized by just adding spacers. For this the system allows
+					to put a text like the "Describe the image here" above this very close to the image without adding a class
+					that indicates the size of margins.
+				</p>
+
+				<div class="spacer medium"></div>
+
+				<p class="font-large">
+					We also customized the line height of the p elements to make the text easier on the eyes, since the system 
+					font we're currently using is a bit heavy on the eyes.
+				</p>
+
+				<div class="spacer medium"></div>
+
+				<p class="font-large">
+					You may also have noticed that using text elements without intrinsic margins or paddings, that we could customize
+					the fact that the image above has a bit more space around it. While these paragraphs don't have extra spacing since 
+					they don't need it to accommodate the text in the example.
+				</p>
+			</div>
+		</div>
+
+		<div class="spacer huge"></div>
+		<div class="row l1 fluid ng">
+			<div class="span l1">
+				<img src="https://via.placeholder.com/2500x600" width="2500" height="600">
+			</div>
+		</div>
+		<div class="spacer huge"></div>
+
+		<div class="row s1">
+			<div class="span s1">
+				<p class="font-large">
+					This mechanism also makes it really simple for full bleed images to be built into the text.
+					It's so simple that one could say it's <em>barely an inconvenience.</em> You just have to end
+					the container and replace it with a fluid one.
+				</p>
+
+				<div class="spacer medium"></div>
+
+				<p class="font-large">
+					Again, this is probably far from an ideal situation for scenarios in which the user has to write 
+					the HTML themselves, because it introduces a lot of verbosity. But it just allows for the amount of
+					creative control that we need without constant overriding of paddings and margins.
+				</p>
+
+				<div class="spacer large"></div>
+
+				<h2>Not so major heading</h2>
+				<div class="spacer medium"></div>
+
+				<p class="font-large">
+					Again, this is probably far from an ideal situation for scenarios in which the user has to write 
+					the HTML themselves, because it introduces a lot of verbosity. But it just allows for the amount of
+					creative control that we need without constant overriding of paddings and margins.
+				</p>
+
+				<div class="spacer large"></div>
+
+				<h3>Not so major heading</h3>
+				<div class="spacer medium"></div>
+
+				<p class="font-large">
+					Again, this is probably far from an ideal situation for scenarios in which the user has to write 
+					the HTML themselves, because it introduces a lot of verbosity. But it just allows for the amount of
+					creative control that we need without constant overriding of paddings and margins.
+				</p>
+
+				<div class="spacer large"></div>
+
+				<h4>Not so major heading</h4>
+				<div class="spacer small"></div>
+
+				<p class="font-large">
+					Notice here how we replaced the spacers to make our flow fit better? While the big chonky headings 
+					in the h2 and h1 category work really well with a lot of space around them, these small ones do really 
+					well without the extra space around them.
+				</p>
+				
+				<div class="spacer medium"></div>
+
+				<p class="font-large">
+					This is the reason why we use the spacers. In this scenario, the smaller space works better, but in some
+					other scenarios, the less space may make them inconsistent with the rest.
+				</p>
+
+				<div class="spacer large"></div>
+
+				<h5>Not so major heading</h5>
+				<div class="spacer small"></div>
+
+				<p class="font-large">
+					Again, this is probably far from an ideal situation for scenarios in which the user has to write 
+					the HTML themselves, because it introduces a lot of verbosity. But it just allows for the amount of
+					creative control that we need without constant overriding of paddings and margins.
+				</p>
+
+				<div class="spacer large"></div>
+
+				<h6>Not so major heading</h6>
+				<div class="spacer small"></div>
+
+				<p class="font-large">
+					Again, this is probably far from an ideal situation for scenarios in which the user has to write 
+					the HTML themselves, because it introduces a lot of verbosity. But it just allows for the amount of
+					creative control that we need without constant overriding of paddings and margins.
+				</p>
+			</div>
+		</div>
+
+		<div class="spacer huge"></div>
+
+		<div class="spacer huge"></div>
+	</body>
+</html>

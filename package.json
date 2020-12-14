@@ -1,0 +1,30 @@
+{
+  "name": "m3w-_scss",
+  "version": "0.0.1-alpha1",
+  "description": "Standard CSS components for websites",
+  "main": "dist/bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build-css; npm run build-js",
+    "build-js": "webpack",
+    "build-css": "sass _.scss dist/_.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://phabricator.magic3w.com/source/underscoreSCSS.git"
+  },
+  "keywords": [
+    "css",
+    "components"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "css-loader": "^5.0.0",
+    "sass": "^1.27.0",
+    "sass-loader": "^10.0.4",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.2.0",
+    "webpack-cli": "^4.1.0"
+  }
+}
