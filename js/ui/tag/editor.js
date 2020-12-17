@@ -109,6 +109,8 @@ depend('_scss/ui/tag/editor', ['m3/core/collection'], function (collect) {
 		
 		this.element.style.display = 'none';
 		this.element.parentNode.insertBefore(this.replace.getOuter(), this.element)
+		
+		this.replace.input.placeholder = element.placeholder;
 	};
 	
 	TagEditor.prototype = {

@@ -121,14 +121,14 @@ input[type="checkbox"].frm-ctrl {
 
 span.frm-ctrl-chk {
 	display: inline-block;
-	width: 1.3rem;
-	height: 1.3rem;
+	width: 1.2rem;
+	height: 1.2rem;
 	border-radius: .25rem;
 	border: solid 1px #CCC;
 	background-color: #DDD;
 	position: relative;
 	margin-right: .2rem;
-	vertical-align: -.4rem;
+	vertical-align: -.2rem;
 	transition:  background-color .3s ease;
 	
 	&:before {
@@ -136,8 +136,8 @@ span.frm-ctrl-chk {
 		position: absolute;
 		top: 0;
 		left: 0;
-		height: 1.3rem;
-		width: 1.3rem;
+		height: 1.2rem;
+		width: 1.2rem;
 		background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20viewBox%3D%220%200%208%208%22%3E%3Cpath%20fill%3D%22%23FFF%22%20d%3D%22M6.41%200l-.69.72-2.78%202.78-.81-.78-.72-.72-1.41%201.41.72.72%201.5%201.5.69.72.72-.72%203.5-3.5.72-.72-1.44-1.41z%22%2F%3E%3C%2Fsvg%3E%0A');
 		background-position: center center;
 		background-repeat: no-repeat;
@@ -178,7 +178,7 @@ input[type="checkbox"].frm-ctrl:checked + span.frm-ctrl-chk{
 	border: solid 1px #56a1d6;
 	
 	&:before {
-		background-size: .8rem .8rem;
+		background-size: .7rem .7rem;
 	}
 	
 	&.toggle {
@@ -201,44 +201,39 @@ input[type="radio"].frm-ctrl {
 
 span.frm-ctrl-rad {
 	display: inline-block;
-	border: solid .05rem #777;
+	border: solid .05rem $grey600;
 	width: 1.3rem;
 	height: 1.3rem;
 	border-radius: .65rem;
-	background-color: #DDD;
+	background-color: $white;
 	position: relative;
 	margin-right: .2rem;
 	vertical-align: -.4rem;
 	transition:  background-color .3s ease;
 	
 	&:before {
-		position: absolute;
-		background: #FFF;
-		top: .65rem;
-		left: .65rem;
-		height: .0rem;
-		width: .0rem;
 		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 1.3rem;
+		width: 1.3rem;
+		background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20viewBox%3D%220%200%208%208%22%3E%3Cpath%20fill%3D%22%23FFF%22%20d%3D%22M6.41%200l-.69.72-2.78%202.78-.81-.78-.72-.72-1.41%201.41.72.72%201.5%201.5.69.72.72-.72%203.5-3.5.72-.72-1.44-1.41z%22%2F%3E%3C%2Fsvg%3E%0A');
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: 0 0;
 		border-radius: 50%;
-		transition: left .3s ease, top .3s ease, width .3s ease, height .3s ease, opacity .3s ease;
+		transition: background-size .15s ease, border-color .30s ease;
 	}
 }
 
 
 input[type="radio"].frm-ctrl:checked + span.frm-ctrl-rad{ 
-	background-color: #56a1d6;
+	border: solid .05rem $purple300;
+	background-color: $purple300;
 	
 	&:before {
-		top: .3rem;
-		left: .3rem;
-		height: .6rem;
-		width: .6rem;
-		background-color: #FFF;
-		color: #FFF;
-		line-height: .9rem;
-		font-size: .9rem;
-		text-align: center;
-		font-weight: bold;
+		background-size: .8rem .8rem;
 	}
 }
 

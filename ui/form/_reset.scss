@@ -52,6 +52,9 @@ textarea {
 	border: solid 1px #CCC;
 	box-shadow: 0 0 0 transparent;
 	transition: box-shadow .15s ease;
+	line-height: 1.3rem;
+	padding: .55rem .4rem;
+	height: calc(2.4rem + 2px);
 	
 	&:focus {
 		border-color: #279af1;
@@ -66,6 +69,9 @@ select {
 	box-shadow: 0 0 0 transparent;
 	transition: box-shadow .15s ease;
 	background: #FFF;
+	line-height: 1.3rem;
+	padding: .55rem .4rem;
+	height: calc(2.4rem + 2px);
 	
 	&:focus {
 		border-color: #279af1;
