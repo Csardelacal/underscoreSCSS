@@ -75,9 +75,10 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 			
 			transition(function (progress) {
 				position = from + (to - from) * progress;
+				var op = position / width * opacity;
 
 				element.style.transform = 'translate(' + (position - width) + 'px, 0px)';
-				container.style.background = 'rgba(0, 0, 0, ' + position / width * opacity + ')';
+				container.style.background = 'rgba(0, 0, 0, ' + op + ')';
 				
 				if (position / width === 0) {
 					container.style.display = 'none';
@@ -114,10 +115,16 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 		
 		g.follow(function (meta, stop) {
 			if (meta.direction === 'h' && meta.startX > 100) {
-				var t = 1 + Math.max(0, Math.min(offset + meta.endX - meta.startX, width));
-				element.style.transform = 'translate(' + (t - width) + 'px, 0px)';
-				container.style.background = 'rgba(0, 0, 0, ' + t / width * opacity + ')';
-				container.style.display = 'block';
+				
+				window.requestAnimationFrame(function () {
+					var t = 1 + Math.max(0, Math.min(offset + meta.endX - meta.startX, width));
+					var op = t / width * opacity;
+
+					element.style.transform = 'translate(' + (t - width) + 'px, 0px)';
+					container.style.background = 'rgba(0, 0, 0, ' + op + ')';
+					container.style.display = 'block';
+				});
+				
 				stop();
 			};
 		});
@@ -138,7 +145,6 @@ depend(['m3/ui/sticky', 'm3/animation/animation', 'm3/hid/gestures/gestures'], f
 			else {
 				hide();
 			}
-			console.log('touchend');
 
 			/*
 			 * If the swipe was registered, we prevent the browser from
