@@ -63,6 +63,16 @@ div.row {
 	}
 }
 
+/**
+ * Sometimes applications need components that are 100% width to make them
+ * fit properly (as opposed to having their natural width).
+ * 
+ * This class allows you to stretch a component to the full width.
+**/
+.full-width {
+	width: 100%;
+}
+
 
 @import '_scaffolding_mobile';
 
