@@ -9,9 +9,4 @@ make them more usable.
 */
 
 
-div.row {
-	width: 100%;
-	max-width: 960px;
-}
-
 @include grid('l', 10);
