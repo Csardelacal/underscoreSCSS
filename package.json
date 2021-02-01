@@ -26,5 +26,9 @@
     "style-loader": "^2.0.0",
     "webpack": "^5.2.0",
     "webpack-cli": "^4.1.0"
+  },
+  "dependencies": {
+    "collect.js": "^4.28.6",
+    "delegate": "^3.2.0"
   }
 }

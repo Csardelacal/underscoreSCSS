@@ -22,12 +22,12 @@
  * THE SOFTWARE.
  */
 
-depend(['m3/core/delegate'], function (delegate) {
+import delegate from 'delegate';
+
+
+delegate(
+	'.discard-message',
+	'click', 
+	function (e) { this.parentNode.parentNode.removeChild(this.parentNode); }
+);
 	
-	delegate(
-		'click', 
-		function (e) { return e.classList.contains('discard-message'); }, 
-		function (e) { this.parentNode.parentNode.removeChild(this.parentNode); }
-	);
-	
-});
