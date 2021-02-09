@@ -261,7 +261,7 @@ input[type="radio"].frm-ctrl:checked + span.frm-ctrl-rad{
 	display: inline-block;
 
 
-	height: ($controlHeight + map-get($controlPadding, "x") * .5);
+	height: ($controlHeight + map-get($controlPadding, "y") * .5);
 	font-size: $controlFontSize;
 	line-height: $controlFontSize * 1.4;
 
@@ -298,6 +298,14 @@ input[type="radio"].frm-ctrl:checked + span.frm-ctrl-rad{
 	}
 }
 
+.frm-ctrl-outer textarea.frm-ctrl {
+	resize: vertical;
+	/*
+	 * Make the component six lines high by default
+	 */
+	height: 6 * $controlFontSize * 1.4 + map-get($controlPadding, "y") * 2.5;
+}
+
 
 .frm-ctrl-outer label {
 	transform-origin: top left;
@@ -311,38 +319,32 @@ input[type="radio"].frm-ctrl:checked + span.frm-ctrl-rad{
 	user-select: none;
 	padding: map-get($controlPadding, "y") 0rem 0rem 0rem;
 	left: map-get($controlPadding, "x");
+	transform: scale(.6);
+	color: #444;
 }
 
 
-.frm-ctrl-outer input[type="text"].frm-ctrl:placeholder-shown +  label,
-.frm-ctrl-outer input[type="password"].frm-ctrl:placeholder-shown +  label {
+.frm-ctrl-outer input[type="text"].frm-ctrl:placeholder-shown:not(:focus) +  label,
+.frm-ctrl-outer input[type="password"].frm-ctrl:placeholder-shown:not(:focus) +  label,
+.frm-ctrl-outer textarea.frm-ctrl:placeholder-shown:not(:focus) +  label {
 	transform: scale(1);
 	top: .3rem;
 }
 
-.frm-ctrl-outer input[type="text"].frm-ctrl +  label,
-.frm-ctrl-outer input[type="password"].frm-ctrl +  label,
-.frm-ctrl-outer select +  label,
 .frm-ctrl-outer input[type="text"].frm-ctrl:focus +  label,
-.frm-ctrl-outer input[type="password"].frm-ctrl:focus +  label {
-	transform: scale(.6);
-	color: #444;
-	height: 2rem;
-	top: 0;
-}
-
-
-.frm-ctrl-outer input[type="text"].frm-ctrl:focus +  label,
-.frm-ctrl-outer input[type="password"].frm-ctrl:focus +  label {
+.frm-ctrl-outer input[type="password"].frm-ctrl:focus +  label,
+.frm-ctrl-outer textarea.frm-ctrl:focus +  label {
 	color: #1c89d6;
 }
 
 .frm-ctrl-outer input[type="text"].frm-ctrl.ctrl-borderless:focus +  label,
-.frm-ctrl-outer input[type="password"].frm-ctrl.ctrl-borderless:focus +  label {
+.frm-ctrl-outer input[type="password"].frm-ctrl.ctrl-borderless:focus +  label,
+.frm-ctrl-outer textarea.frm-ctrl.ctrl-borderless:focus +  label {
 	color: #222;
 }
 
 .frm-ctrl-outer input[type="text"].frm-ctrl.ctrl-android:focus +  label,
-.frm-ctrl-outer input[type="password"].frm-ctrl.ctrl-android:focus +  label {
+.frm-ctrl-outer input[type="password"].frm-ctrl.ctrl-android:focus +  label,
+.frm-ctrl-outer textarea.frm-ctrl.ctrl-android:focus +  label {
 	color: #222;
 }

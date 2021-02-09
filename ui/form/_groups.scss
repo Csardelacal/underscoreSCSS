@@ -64,9 +64,9 @@ THE SOFTWARE.
 		display: inline-block;
 		background: #FFF;
 		border: 1px solid #CCC;
-		height: ($controlHeight + map-get($controlPadding, "x") * .5);
+		height: ($controlHeight + map-get($controlPadding, "y") * .5);
 		font-size: 1rem;
-		line-height: 1.8rem + map-get($controlPadding, "x")*.5;
+		line-height: 1.8rem + map-get($controlPadding, "y")*.5;
 		overflow: hidden;
 
 		padding: 
@@ -94,7 +94,8 @@ THE SOFTWARE.
 		.frm-ctrl-ro, 
 		.frm-ctrl,
 		input[type="text"].frm-ctrl,
-		input[type="password"].frm-ctrl {
+		input[type="password"].frm-ctrl ,
+		textarea.frm-ctrl {
 			border-radius: 0;
 			border-left-style: none;
 			border-right-style: none;
@@ -105,7 +106,8 @@ THE SOFTWARE.
 			.frm-ctrl-ro,
 			.frm-ctrl,
 			input[type="text"].frm-ctrl,
-			input[type="password"].frm-ctrl {
+			input[type="password"].frm-ctrl,
+			textarea.frm-ctrl {
 				border-radius: .3rem 0 0 .3rem;
 				border-left-style: solid;
 
@@ -125,7 +127,8 @@ THE SOFTWARE.
 			.frm-ctrl-ro,
 			.frm-ctrl,
 			input[type="text"].frm-ctrl,
-			input[type="password"].frm-ctrl {
+			input[type="password"].frm-ctrl,
+			textarea.frm-ctrl {
 				border-radius: 0 .3rem .3rem 0;
 				border-right-style: solid;
 
