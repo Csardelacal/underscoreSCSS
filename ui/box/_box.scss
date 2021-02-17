@@ -2,7 +2,8 @@
 $box-padding-y : .8rem;
 
 .box {
-    border: solid 1px $grey300;
+	border: solid 1px $grey300;
+	background-color: $white;
     overflow: hidden;
     transition: box-shadow .3s ease;;
 

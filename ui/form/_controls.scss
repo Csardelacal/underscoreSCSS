@@ -261,7 +261,7 @@ input[type="radio"].frm-ctrl:checked + span.frm-ctrl-rad{
 	display: inline-block;
 
 
-	height: ($controlHeight + map-get($controlPadding, "y") * .5);
+	height: $controlHeight;
 	font-size: $controlFontSize;
 	line-height: $controlFontSize * 1.4;
 
@@ -273,7 +273,7 @@ input[type="radio"].frm-ctrl:checked + span.frm-ctrl-rad{
 	padding: 
 		map-get($controlPadding, "y")*1.5 
 		map-get($controlPadding, "x") 
-		map-get($controlPadding, "y");
+		map-get($controlPadding, "y")*0.5;
 
 	// Some browsers would like to render an outline around our form, this is not what we want
 	// either

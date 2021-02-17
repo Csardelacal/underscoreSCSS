@@ -86,11 +86,27 @@
 		}
 	}
 	
-	&.small {
-		font-size: .82rem;
-		padding: (2rem - $button-border-width - $button-border-width - .82)/2 .7rem;
+	&.xsmall {
+		font-size: ($buttonHeight - 2 * map-get($buttonPadding, "y") - 2 * $button-border-width) / 1.4 * .50;
+		line-height: ($buttonHeight - 2 * map-get($buttonPadding, "y") - 2 * $button-border-width) * .50;
+		padding: map-get($buttonPadding, "y") * .50 map-get($buttonPadding, "x") * .75;
 		border-radius: $button-border-small-radius;
-		height: 2rem;
-		line-height: .82rem;
+		height: $buttonHeight * .50;
+	}
+	
+	&.small {
+		height: $buttonHeight * .6;
+		font-size: ($buttonHeight - 2 * map-get($buttonPadding, "y") - 2 * $button-border-width) / 1.4 * .6;
+		line-height: ($buttonHeight - 2 * map-get($buttonPadding, "y") - 2 * $button-border-width) * .66;
+		padding: map-get($buttonPadding, "y") * .6 map-get($buttonPadding, "x") * .85;
+		border-radius: $button-border-small-radius;
+	}
+	
+	&.medium {
+		font-size: ($buttonHeight - 2 * map-get($buttonPadding, "y") - 2 * $button-border-width) / 1.4 * .8;
+		line-height: ($buttonHeight - 2 * map-get($buttonPadding, "y") - 2 * $button-border-width) * .8;
+		padding: map-get($buttonPadding, "y") * .8 map-get($buttonPadding, "x") * .8;
+		border-radius: $button-border-radius;
+		height: $buttonHeight * .8;
 	}
 }

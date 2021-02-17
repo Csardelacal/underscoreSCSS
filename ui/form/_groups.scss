@@ -64,9 +64,9 @@ THE SOFTWARE.
 		display: inline-block;
 		background: #FFF;
 		border: 1px solid #CCC;
-		height: ($controlHeight + map-get($controlPadding, "y") * .5);
+		height: $controlHeight;
 		font-size: 1rem;
-		line-height: 1.8rem + map-get($controlPadding, "y")*.5;
+		line-height: $controlFontSize * 1.4 + map-get($controlPadding, "y")*.5;
 		overflow: hidden;
 
 		padding: 
