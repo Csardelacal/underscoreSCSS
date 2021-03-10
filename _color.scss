@@ -165,3 +165,10 @@ $activeStateBackground: $white;
 
 $inactiveStateBorder: $blue500;
 $inactiveStateBackground: $white;
+
+
+@each $caption, $color in $colors {
+	.bg\:#{$caption} {
+		background-color: $color
+	}
+}
