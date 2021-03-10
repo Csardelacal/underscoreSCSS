@@ -100,3 +100,15 @@ small {
 .no-decoration {
 	text-decoration: none;
 }
+
+.underline {
+	text-decoration: underline;
+}
+
+.hover\:underline {
+	text-decoration: none;
+	
+	&:hover {
+		text-decoration: underline;
+	}
+}
