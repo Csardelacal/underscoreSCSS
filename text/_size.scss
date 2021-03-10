@@ -1,0 +1,53 @@
+
+/*
+ * This mixin allows the application to set certain variables for
+ * our module. These will be considered "static" and will carry over
+ * to any part of our site that uses the module.
+ */
+@mixin configure () 
+{
+	
+}
+
+
+@mixin styles () 
+{
+	
+	$p: if(&, "&", "");
+	
+	#{$p}.fs\:0 {
+		font-size: 0.8rem
+	}
+	
+	#{$p}.fs\:1 {
+		font-size: 0.9rem
+	}
+	
+	#{$p}.fs\:2 {
+		font-size: 1.0rem
+	}
+	
+	#{$p}.fs\:3 {
+		font-size: 1.1rem
+	}
+	
+	#{$p}.fs\:4 {
+		font-size: 1.2rem
+	}
+	
+	#{$p}.fs\:5 {
+		font-size: 1.4rem
+	}
+	
+	#{$p}.fs\:6 {
+		font-size: 1.7rem
+	}
+	
+	#{$p}.fs\:7 {
+		font-size: 2.0rem
+	}
+	
+	#{$p}.fs\:8 {
+		font-size: 3.0rem
+	}
+}

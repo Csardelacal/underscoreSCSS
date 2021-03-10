@@ -26,6 +26,14 @@ THE SOFTWARE.
     Author     : César de la Cal Bretschneider <cesar@magic3w.com>
 */
 
+@use "text/height" as lineheight;
+@use "text/size"   as fontsize;
+
+* {
+	@include lineheight.styles();
+	@include fontsize.styles();
+}
+
 @each $caption, $color in $colors {
 	.text\:#{$caption} {
 		color: $color
@@ -50,49 +58,35 @@ p {
 }
 
 h1 {
-	font-size: 2.2em;
+	@extend .fs\:6;
 }
 
 h2 {
-	font-size: 1.8em;
+	@extend .fs\:5;
 }
 
 h3 {
-	font-size: 1.55em;
+	@extend .fs\:4;
 }
 
 h4 {
-	font-size: 1.45em;
+	@extend .fs\:4;
+	color: $grey800;
 }
 
 h5 {
-	font-size: 1.4em;
+	@extend .fs\:3;
 	color: $grey800;
 }
 
 h6 {
-	font-size: 1.4em;
+	@extend .fs\:3;
 	color: $grey700;
 }
 
 p {
-	line-height: 1.3;
-}
-
-p.font-large {
-	font-size: 1.1em;
-}
-
-p.font-xlarge {
-	font-size: 1.2em;
-}
-
-p.font-small {
-	font-size: .9em;
-}
-
-p.font-xsmall {
-	font-size: .8em;
+	@extend .fs\:2;
+	@extend .lh\:3;
 }
 
 .text-bold {
@@ -100,7 +94,7 @@ p.font-xsmall {
 }
 
 small {
-	font-size: .8rem;
+	@extend .fs\:1;
 }
 
 .no-decoration {
