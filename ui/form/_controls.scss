@@ -173,7 +173,9 @@ span.frm-ctrl-chk.toggle {
 }
 
 
-input[type="checkbox"].frm-ctrl:checked + span.frm-ctrl-chk{ 
+input[type="checkbox"].frm-ctrl:checked + span.frm-ctrl-chk,
+input[type="radio"].frm-ctrl:checked + span.frm-ctrl-chk
+{ 
 	background-color: #56a1d6;
 	border: solid 1px #56a1d6;
 	
@@ -228,7 +230,9 @@ span.frm-ctrl-rad {
 }
 
 
-input[type="radio"].frm-ctrl:checked + span.frm-ctrl-rad{ 
+input[type="checkbox"].frm-ctrl:checked + span.frm-ctrl-rad,
+input[type="radio"].frm-ctrl:checked + span.frm-ctrl-rad
+{ 
 	border: solid .05rem $purple300;
 	background-color: $purple300;
 	
