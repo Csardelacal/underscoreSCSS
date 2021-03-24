@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "collect.js": "^4.28.6",
-    "delegate": "^3.2.0"
+    "delegate": "^3.2.0",
+    "find-parent": "^2.0.2"
   }
 }

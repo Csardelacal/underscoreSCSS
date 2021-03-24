@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-	entry: {'_scss': './js/_.scss.js'},
+	entry: {'_leg': './js/_.scss.js', '_scss': './_scss.js'},
 	target: "web",
 	output: {
 		filename: '[name].js',
