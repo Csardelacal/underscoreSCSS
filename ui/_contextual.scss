@@ -1,0 +1,33 @@
+
+$-background : #EEE;
+$-foreground : #CCC;
+$-radius : 3px;
+
+@mixin configure ($background: null, $foreground: null, $radius: null) {
+	@if($background) { $-background: $background !global; }
+	@if($foreground) { $-foreground: $foreground !global; }
+	@if($radius) { $-radius: $radius !global; }
+}
+
+@mixin styles($height: 3.2rem, $width: null, $radius: 3px) {
+	
+	@if ($width == null) { $width: $height; }
+	
+	&.contextual-toggle {
+		
+		display: inline-block;
+		width: $width;
+		height: $height;
+		background-color: $-background;
+		vertical-align: middle;
+		
+		border-radius: $-radius;
+		border: solid $width/10 $-background;
+		
+		background-image: radial-gradient($-foreground $width/11, transparent $width/12);
+		background-position: center center;
+		background-size: $width/4 $width/4;
+		background-repeat: repeat-x;
+	}
+	
+}

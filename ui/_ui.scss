@@ -8,6 +8,23 @@ and open the template in the editor.
     Author     : César de la Cal Bretschneider <cesar@magic3w.com>
 */
 
+@use '_contextual' as contextual;
+
+@include contextual.configure(
+	$foreground: $grey500,
+	$background: $grey100
+);
+
+* { 
+	@include contextual.styles(); 
+}
+
+.small { 
+	$height : 3.2rem * .6;
+	$radius : .18rem;
+	@include contextual.styles($height: $height, $radius: $radius); 
+}
+
 @import 'sidebar/_sidebar.scss';
 @import 'buttons/_button.scss';
 @import '_dialog.scss';
