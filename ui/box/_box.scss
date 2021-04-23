@@ -1,8 +1,22 @@
 
+@use "borders"  as borders;
+
+@include borders.configure(
+	$colors: (
+		"light"   : map-get($colors, "grey-200"),
+		"dark"    : map-get($colors, "grey-400"),
+		"info"    : map-get($colors, "blue-300"),
+		"warn"    : map-get($colors, "orange-300"),
+		"error"   : map-get($colors, "red-300"),
+		"success" : map-get($colors, "green-700"),
+	)
+);
+
 $box-padding-y : .8rem;
 
 .box {
-	border: solid 1px $grey300;
+	@include borders.styles();
+	
 	background-color: $white;
     overflow: hidden;
     transition: box-shadow .3s ease;;

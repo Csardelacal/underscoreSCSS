@@ -1,0 +1,98 @@
+
+$-types : dotted, solid, dashed, none;
+
+$-widths : (
+	0 : .10rem, 
+	1 : .15rem, 
+	2 : .20rem, 
+	3 : .25rem, 
+	4 : .40rem, 
+	5 : .50rem
+);
+
+$-colors  : (
+	"grey" : #CCC
+);
+
+@mixin configure ($colors)
+{
+	@if($colors) { $-colors: $colors !global; }
+
+}
+
+@mixin styles () 
+{
+	
+	$p: if(&, "&", "");
+	
+	@each $type in $-types 
+	{
+		#{$p}.brdr\:#{$type} {
+			border-style: $type;
+			border-width: map-get($-widths, 0);
+			border-color: #CCC;
+		}
+		
+		#{$p}.brdr-l\:#{$type} {
+			border-left-style: $type;
+		}
+		
+		#{$p}.brdr-r\:#{$type} {
+			border-right-style: $type;
+		}
+		
+		#{$p}.brdr-t\:#{$type} {
+			border-top-style: $type;
+		}
+		
+		#{$p}.brdr-b\:#{$type} {
+			border-bottom-style: $type;
+		}
+	}
+	
+	@each $strength, $width in $-widths 
+	{
+		#{$p}.brdr\:#{$strength} {
+			border-width: $width;
+		}
+		
+		#{$p}.brdr-l\:#{$strength} {
+			border-left-width: $width;
+		}
+		
+		#{$p}.brdr-r\:#{$strength} {
+			border-right-width: $width;
+		}
+		
+		#{$p}.brdr-b\:#{$strength} {
+			border-right-width: $width;
+		}
+		
+		#{$p}.brdr-t\:#{$strength} {
+			border-right-width: $width;
+		}
+	}
+	
+	@each $name, $color in $-colors 
+	{
+		#{$p}.brdr\:#{$name} {
+			border-color: $color;
+		}
+		
+		#{$p}.brdr-l\:#{$name} {
+			border-left-color: $color;
+		}
+		
+		#{$p}.brdr-r\:#{$name} {
+			border-right-color: $color;
+		}
+		
+		#{$p}.brdr-t\:#{$name} {
+			border-top-color: $color;
+		}
+		
+		#{$p}.brdr-b\:#{$name} {
+			border-bottom-color: $color;
+		}
+	}
+}
