@@ -45,3 +45,12 @@ THE SOFTWARE.
 @import "ui/_ui.scss";
 @import "_text.scss";
 @import "_image.scss";
+
+/**
+ * Websites that overflow horizontally will generally sacrifice mobile usability
+ * very heavily. Blocking the horizontal overflow is in 99% of the situations a 
+ * welcome usability tradeoff.
+ */
+body {
+	overflow-x: hidden;
+}

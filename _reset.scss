@@ -26,6 +26,17 @@ THE SOFTWARE.
     Author     : César de la Cal Bretschneider <cesar@magic3w.com>
 */
 
+/**
+ * The border box box sizing is not the default behavior in browsers, but
+ * it's the most sensible setting available when creating layouts, since 
+ * otherwise it's almost impossible to make layouts that add up to pixel
+ * precise spaces.
+ */
+* {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
 html {
 	/*
 	 * Resets the system to use a known good system font.

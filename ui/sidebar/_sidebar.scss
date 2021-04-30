@@ -1,107 +1,204 @@
 
 @import '_toggle.scss';
 
-body {
-	overflow-x: hidden;
+/*
+ * The sidebar is a container that overlaps with the content of the site,
+ * allowing to provide complex navigation patterns on mobile devices.
+ * 
+ * This is specifically designed for mobile devices or websites that require lots of 
+ * screen real estate. If you need alternate navigation for desktop devices, you should
+ * use the desktop-only and not-desktop classes to indicate which navigation to use
+ * at which point.
+ */
+
+$-width : 300px;
+$-breakpoints: (
+	"small" :  ("from": 0, "to": 480px),
+	"medium" : ("from": 481px, "to": 960px),
+	"large"  : ("from": 961px, "to": 9999999999px)
+);
+
+@mixin configure($width : null, $breakpoints : null) 
+{
+	@if($breakpoints) { $-breakpoints: $breakpoints !global; }
+	@if($width) { $-width: $width !global; }
 }
 
-* {
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-}
-
-.sidebar {
-	overflow: hidden;
-	position: fixed;
-	display: block;
-	height: 100%;
-	left: 0px;
-	top : 0;
-	width:  300px;
-	max-width:  90%;
-	transform: translate(-300px, 0);
-	background: #FFF;
-	border-right: 1px solid #DDD;
+@mixin styles() 
+{
 	
-	.menu-title {
+	.sidebar {
+		overflow: hidden;
+		position: fixed;
 		display: block;
-		color: #999;
-		font-size: 1rem;
-		padding: .8rem 1rem .5rem;
-	}
-	
-	.menu-entry {
-		font-size: .8rem;
-		color: #666;
-		display: block;
+		height: 100%;
+		left: 0px;
+		top : 0;
+		width:  $-width;
+		transform: translate(- $-width, 0);
+		transition: transform .2s ease;
+		background: #FFF;
+		border-right: 1px solid #DDD;
 		
-		&:hover {
-			color: #242424;
-			background: #F7F7F7;
-		}
-		
-		&.active,
-		&:active {
-			background-color: #2f97e0;
-			color: #FFF;
-			font-weight: bold;
-		}
-		
-		a {
-			padding: .7rem 1rem;
+		.menu-title {
 			display: block;
-			width: 100%;
+			color: #999;
+			font-size: 1rem;
+			padding: .8rem 1rem .5rem;
 		}
 		
-		img {
-			vertical-align: middle;
-			height: 1.2em;
-			margin-right: .5rem;
+		.menu-entry {
+			font-size: .8rem;
+			color: #666;
+			display: block;
+			
+			&:hover {
+				color: #242424;
+				background: #F7F7F7;
+			}
+			
+			&.active,
+			&:active {
+				background-color: #2f97e0;
+				color: #FFF;
+				font-weight: bold;
+			}
+			
+			a {
+				padding: .7rem 1rem;
+				display: block;
+				width: 100%;
+			}
+			
+			img {
+				vertical-align: middle;
+				height: 1.2em;
+				margin-right: .5rem;
+			}
+		}
+		
+		.indented {
+			padding-left: 10px;
+			border-left: solid 1px #DDD;
+		}
+		
+		.navbar {
+			box-shadow: none;
+		}
+
+		a {
+			color: inherit;
+			text-decoration: none;
+			
+			&:hover {
+				color: #333;
+			}
+			
+			&:active {
+				color: #FFF;
+			}
+		}
+	}
+
+	.sidebar:hover {
+		overflow: auto;
+	}
+
+	.contains-sidebar {
+		display: block;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		transition: background-color 1s ease, transform 0.01s 1s;
+		background-color: transparent;
+		z-index: 30;
+		transform: translate(-100%, 0);
+		
+		&[data-visible] {
+			background-color: rgba(0, 0, 0, .1);
+			transition: background-color 1s ease, transform 0.01s;
+			transform: translate(0, 0);
+			
+			.sidebar {
+				transform: translate(0px, 0);
+			}
 		}
 	}
 	
-	.indented {
-		padding-left: 10px;
-		border-left: solid 1px #DDD;
-	}
-	
-	.navbar {
-		box-shadow: none;
-	}
-
-	a {
-		color: inherit;
-		text-decoration: none;
-		
-		&:hover {
-			color: #333;
+	@each $name, $sizes in $-breakpoints
+	{
+		/**
+		 * For each of the media queries we can generate a sidebar that 
+		 */
+		@media all and 
+			(min-width : map-get($map: $sizes, $key: 'from') + $-width) and 
+			(max-width : map-get($map: $sizes, $key: 'to') + $-width)
+		{
+			
+			/**
+			 * Forces the sidebar shut for certain sizes. This allows the desktop variant of the 
+			 * app to render custom navigation.
+			 */
+			.contains-sidebar.#{$name}-force-closed {
+				background-color: transparent;
+				transform: translate(-100%, 0);
+				
+				.sidebar {
+					transform: translate(0 - $-width, 0);
+				}
+			}
+			
+			/**
+			 * We can force teh sidebar open for certain sizes. For example, large
+			 * screens would benefit from just having the sidebar open the entire
+			 * time.
+			 */
+			.contains-sidebar.#{$name}-force-open {
+				background-color: transparent;
+				transition: background-color 1s ease, transform 0.01s;
+				transform: translate(0, 0);
+				
+				/**
+				 * If we pin open the sidebar, we should be mindful that the sidebar will exist
+				 * alongside the application.
+				 */
+				width: $-width;
+			
+				.sidebar {
+					transform: translate(0, 0);
+				}
+			}
+			
+			/**
+			 * For applications that pin the sidebar, we should remember that the application will
+			 * have to clear the sidebar.
+			 */
+			.clear-sidebar-#{$name} {
+				margin-left: $-width;
+			}
+			
+			/**
+			 * Some UI elements are going to only be visible if the application is meeting the appropriate
+			 * size requirements are met. For example, if we force the sidebar open for desktop applications,
+			 * the sidebar toggle should be hidden or a certain set of elements within the sidebar to be
+			 * displayed.
+			 * 
+			 * This also applies if we do want to prohibit opening the sidebar on desktops because we have the n
+			 * navigation inside the flow of the page.
+			 */
+			.hide-if-sidebar-#{$name} {
+				display: none;
+			}
+			
+			.show-if-sidebar-#{$name} {
+				display: block;
+			}
 		}
 		
-		&:active {
-			color: #FFF;
+		.clear-sidebar-#{$name} {
+			transition: margin .1s ease;
 		}
 	}
-}
-
-.sidebar:hover {
-	overflow: auto;
-}
-
-.contains-sidebar {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, .1);
-	z-index: 30;
-}
-	
-
-@media all and (max-width: 1160px) {
-}
-
-
-@media all and (min-width: 1160px) {
 }

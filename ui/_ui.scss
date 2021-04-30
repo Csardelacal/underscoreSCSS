@@ -9,6 +9,7 @@ and open the template in the editor.
 */
 
 @use '_contextual' as contextual;
+@use 'sidebar/sidebar' as sidebar;
 
 @include contextual.configure(
 	$foreground: $grey500,
@@ -25,7 +26,9 @@ and open the template in the editor.
 	@include contextual.styles($height: $height, $radius: $radius); 
 }
 
-@import 'sidebar/_sidebar.scss';
+@include sidebar.configure();
+@include sidebar.styles();
+
 @import 'buttons/_button.scss';
 @import '_dialog.scss';
 @import '_gallery.scss';
