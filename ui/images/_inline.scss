@@ -1,0 +1,23 @@
+
+@mixin configure () 
+{
+	
+}
+
+@mixin styles ($height: 3.2rem, $vertical-align: middle)
+{
+	/*
+	 * Inline images should mostly just respect how they are positioned according to the
+	 * rest of the text. It's really annoying to have images breaking out of the flow of
+	 * a piece of writing and causing disturbances.
+	 * 
+	 * Please note that these should only be used in the context of inline elements, where
+	 * it is desired to have the images not breaking out of the flow (for things like icons)
+	 * and that you should avoid using these styles for other scopes.
+	 */
+	& img,
+	& svg {
+		height: $height;
+		vertical-align: $vertical-align;
+	}
+}

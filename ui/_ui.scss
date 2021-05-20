@@ -10,14 +10,18 @@ and open the template in the editor.
 
 @use '_contextual' as contextual;
 @use 'sidebar/sidebar' as sidebar;
+@use 'images/common' as images;
 
 @include contextual.configure(
 	$foreground: $grey500,
 	$background: $grey100
 );
 
+@include images.configure();
+
 * { 
 	@include contextual.styles(); 
+	@include images.styles(); 
 }
 
 .small { 
@@ -43,4 +47,3 @@ and open the template in the editor.
 @import 'burger/_burger.scss';
 @import 'box/_box.scss';
 @import 'caret/_caret.scss';
-@import 'images/_images.scss';
